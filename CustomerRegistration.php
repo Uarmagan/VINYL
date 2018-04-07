@@ -40,12 +40,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 ?>
 
 <h1>Customer Registration</h1>
-<form action="register.php" method="POST">
-    <p>Email Address: <input type="text" name="email" size="15" maxlength="60" value=<?php if(isset($_POST['email'])) echo $_POST['email']; ?>></p>
-    <p>password: <input type="password" name="password" size="15" maxlength="20" value=<?php if(isset($_POST['password'])) echo $_POST['password']; ?>></p>
-    <p>First Name: <input type="text" name="firstName" size="15" maxlength="20" value=<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>></p>
-    <p>Last Name: <input type="text" name="lastName" size="15" maxlength="40" value=<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>></p>
-    
+<form action="register.php" method="POST" style="display:flex; flex-direction:column; width:500px;">
+    <label for="email">Email Address:</label>
+    <input type="text" name="email" maxlength="60" value=<?php if(isset($_POST['email'])) echo $_POST['email']; ?>>
+    <label for="password">password:</label>
+    <input type="password" name="password" maxlength="20" value=<?php if(isset($_POST['password'])) echo $_POST['password']; ?>>
+    <label for="firstName">First Name:</label>
+    <input type="text" name="firstName" maxlength="20" value=<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>>
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="lastName" maxlength="40" value=<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>>
+    <label for="Address">Address:</label>
+    <input type="text" name="address" maxlength="40" value=<?php if(isset($_POST['address'])) echo $_POST['address']; ?>>
 </form>
 
 <?php include('includes/footer.html');
