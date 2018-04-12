@@ -46,12 +46,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }else{
         $address = trim($_POST['address']);
     }
+}
+if(empty($errors)){
+    $query = "INSERT INTO owner('fName', 'lName','address', 'Email','password') values($fn, $ln, $address, $email, $pass)";
+    $r = mysqli_query($dbc, $query);
 
+    if($r){
+        echo '<p> SUCCESSFUL REGISTERED!</p>';
+    }else{
+        echo '<p> UNSUCCESSFUL REGISTERED!</p><br> <p> Check Query INSERT!</p>';
+    }
 }
 ?>
 <h1>Owner Registration</h1>
 <form action="register.php" method="POST" style="display:flex; flex-direction:column; width:500px;">
-<label for="email">Email Address:</label>
+    <label for="email">Email Address:</label>
     <input type="text" name="email" maxlength="60" value=<?php if(isset($_POST['email'])) echo $_POST['email']; ?>>
     <label for="password">password:</label>
     <input type="password" name="password" maxlength="20" value=<?php if(isset($_POST['password'])) echo $_POST['password']; ?>>
