@@ -11,20 +11,30 @@ require('connect.php');
 
 <div class="items">
     <?php
-        $query = "SELECT * FROM inventory";
-        if ($result = mysqli_query($db, $query)) {
+        $itemQuery = "SELECT * FROM inventory WHERE quantity > 0";
+        if ($ItemResult = mysqli_query($db, $itemQuery)) {
 
             echo '<div style="display:flex; flex-wrap:wrap;">';
 
-            while($row = mysqli_fetch_array($result)){
+            while($itemRow = mysqli_fetch_array($ItemResult)){
+
+                $storeQuery = "SELECT  DISTINCT s.storeName FROM store s, storeInventory x, inventory i WHERE s.storeID = x.storeID AND {$itemRow['inventoryID']} = x.inventoryID";
+                 
+                $storeResult = mysqli_query($db, $storeQuery);
+                
                 echo '<div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; margin:20px; width:250px;">';
                     echo '<form method="post" action="">';
-                        echo '<h5>Album Name: '.$row['albumName'].'</h5>';
-                        echo '<h5> Artist: '. $row['artistName'] .'</h5>';
-                        echo '<h5> Price: $'. $row['cost'] .'</h5>';
-                        echo '<h5> Qty Available: '. $row['quantity'] .'</h5>';
+                        echo '<h5>Album Name: '.$itemRow['albumName'].'</h5>';
+                        echo '<h5> Artist: '. $itemRow['artistName'] .'</h5>';
+                        echo '<h5> Price: $'. $itemRow['cost'] .'</h5>';
+                        echo '<h5> Qty Available: '. $itemRow['quantity'] .'</h5>';
                         echo '<input type="text" name="quantity" class="form-control" value="1" />';
                         echo '<input type="submit" name="add_to_cart" style="margin-top:5px;" value="Add to Cart" />';
+                        echo '<select name="storeDropDown">';
+                            while($storeRow = mysqli_fetch_array($storeResult)){
+                                echo '<option value="' . $storeRow['storeName'] .'">' . $storeRow['storeName'] .'</option>';
+                            }       
+                        echo '</select>';
                         echo '<hr>';
                     echo '</form>';
                 echo '</div>';
