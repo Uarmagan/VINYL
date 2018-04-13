@@ -5,7 +5,7 @@ require('connect.php');
 ?>
 
 <div class="search">
-    <input type="searchBar">
+    <input type="searchBar" size="100px" style="border:1px solid #333; margin-left:20px;">
     <button>Search</button>
 </div>
 
@@ -13,27 +13,27 @@ require('connect.php');
     <?php
         $query = "SELECT * FROM inventory";
         if ($result = mysqli_query($db, $query)) {
-            
-            echo "<table border='1'>
-            <tr>
-            <th>Album Name</th>
-            <th>artistName</th>
-            <th>Cost</th>
-            <th>Quantity</th>
-            </tr>";
 
-            while($row = mysqli_fetch_array($result))
-            {
-                echo "<tr>";
-                echo "<td>" . $row['albumName'] . "</td>";
-                echo "<td>" . $row['artistName'] . "</td>";
-                echo "<td>" . $row['cost'] . "</td>";
-                echo "<td>" . $row['quantity'] . "</td>";
-                echo "</tr>";
+            echo '<div style="display:flex; flex-wrap:wrap;">';
+
+            while($row = mysqli_fetch_array($result)){
+                echo '<div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; margin:20px; width:200px;">';
+                    echo '<form method="post" action="">';
+                        echo '<h4>Album Name: '.$row['albumName'].'</h4>';
+                        echo '<h4> Artist:'. $row['artistName'] .'</h4>';
+                        echo '<h4> Price: $'. $row['cost'] .'</h4>';
+                        echo '<h4> Qty Available: $'. $row['quantity'] .'</h4>';
+                        echo '<input type="text" name="quantity" class="form-control" value="1" />';
+                        echo '<input type="submit" name="add_to_cart" style="margin-top:5px;" value="Add to Cart" />';
+                        echo '<hr>';
+                    echo '</form>';
+                echo '</div>';
             }
-            echo "</table>";
+            echo '</div>';
 
             mysqli_close($db);
+        }else{
+            echo 'No Vinyl Available';
         }
     ?>
 </div>
