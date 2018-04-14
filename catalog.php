@@ -5,7 +5,7 @@ require('connect.php');
 ?>
 
 <div class="search">
-    <input type="searchBar" size="100px" style="border:1px solid #333; margin:20px;">
+    <input type="search" class="searchBar" size="100px" style="border:1px solid #333; margin:20px;" onkeyup="filterSearch()">
     <button>Search</button>
 </div>
 
@@ -22,10 +22,10 @@ require('connect.php');
                  
                 $storeResult = mysqli_query($db, $storeQuery);
                 
-                echo '<div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; margin:20px; width:250px;">';
+                echo '<div class="card" style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; margin:20px; width:250px;">';
                     echo '<form method="post" action="">';
-                        echo '<h5>Album Name: '.$itemRow['albumName'].'</h5>';
-                        echo '<h5> Artist: '. $itemRow['artistName'] .'</h5>';
+                        echo '<h5 class="albumName">Album Name: '.$itemRow['albumName'].'</h5>';
+                        echo '<h5 class="artist"> Artist: '. $itemRow['artistName'] .'</h5>';
                         echo '<h5> Price: $'. $itemRow['cost'] .'</h5>';
                         echo '<h5> Qty Available: '. $itemRow['quantity'] .'</h5>';
                         echo '<input type="text" name="quantity" class="form-control" value="1" />';
@@ -49,9 +49,27 @@ require('connect.php');
 </div>
 
 <!-- browser sync script -->
-<script id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.23.5'><\/script>".replace("HOST", location.hostname));
-    //]]></script>
+<script>
+    function filterSearch() {
+        const search = document.querySelector('.searchBar').value;
+        const cards = document.querySelectorAll('.card');
+        if(search != null){
+            cards.forEach( element => {
+                const elementName = element.querySelectorAll('.albumName');
+                const htmlTerm = elementName[0].innerText;
+                const regx = /(?<=: )[^\]]+/g;
+                const albumName = htmlTerm.match(regx)[0];
+
+                if (albumName.indexOf(search) > -1) {
+                    element.style.display = "";
+                } else {
+                    element.style.display = "none";
+                }
+            })
+        }
+        
+    }
+</script>
     
 <?php
 include('includes/footer.html');
