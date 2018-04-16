@@ -17,7 +17,8 @@ function createNav(){
             <li class="nav-item">
                 <a class="nav-link" href="#">Cart</a>
             </li>';
-            }else{
+            }
+            if(@$_SESSION['type'] == 'owner'){{
       echo '<li class="nav-item">
                 <a class="nav-link" href="#">StoreName</a>
             </li>
