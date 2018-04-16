@@ -14,19 +14,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($_POST['password'])){
         $errors[] = 'you forgot to enter your password';
     }else{
-        $pass = trim($_POST['password']);
+        $password = trim($_POST['password']);
+    }
+
+    if(empty($_POST['confirmPassword'])){
+        $cpass = $_POST['ConfirmPassword'];
+    }else{
+        $errors[] = "you forgot to confrim Password";
     }
 
     if(empty($_POST['firstName'])){
         $errors[] = 'you forgot to enter your first name';
     }else{
-        $fn = trim($_POST['firstName']);
+        $firstName = trim($_POST['firstName']);
     }
 
     if(empty($_POST['lastName'])){
         $errors[] = 'you forgot to enter your last name';
     }else{
-        $ln = trim($_POST['lastName']);
+        $lastName = trim($_POST['lastName']);
     }
 
     if(empty($_POST['StoreName'])){
@@ -38,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($_POST['StoreDesc'])){
         $errors[] = 'you forgot to enter your store description';
     }else{
-        $StoreDesc = trim($_POST['storeDesc']);
+        $StoreDescription = trim($_POST['storeDesc']);
     }
 
     if(empty($_POST['address'])){
@@ -46,35 +52,40 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }else{
         $address = trim($_POST['address']);
     }
-}
-if(empty($errors)){
-    $query = "INSERT INTO owner('fName', 'lName','address', 'Email','password') values($fn, $ln, $address, $email, $pass)";
-    $r = mysqli_query($dbc, $query);
 
-    if($r){
-        echo '<p> SUCCESSFUL REGISTERED!</p>';
-    }else{
-        echo '<p> UNSUCCESSFUL REGISTERED!</p><br> <p> Check Query INSERT!</p>';
+
+    if($password == $cpass){
+        $password = SHI1($cpass);
+        $ownerQuery = "INSERT INTO owner(fName, lName, address, email,password) VALUES('$firstName', '$lastName', '$address', '$email', '$password')";
+        
+        $result = mysqli_query($db, $ownerQuery);
+        if($result)
+        {
+           $getOwnerID = "SELECT ownerID FROM owner WHERE email = '$email'";
+           $q = mysqli_query($db, $getOwnerID);
+
+            if($q){
+                echo"Store Created!";
+            }
+        }
+
     }
+
 }
+
 ?>
 <h1>Owner Registration</h1>
-<form action="register.php" method="POST" style="display:flex; flex-direction:column; width:500px;">
-    <label for="email">Email Address:</label>
-    <input type="text" name="email" maxlength="60" value=<?php if(isset($_POST['email'])) echo $_POST['email']; ?>>
-    <label for="password">password:</label>
-    <input type="password" name="password" maxlength="20" value=<?php if(isset($_POST['password'])) echo $_POST['password']; ?>>
-    <label for="firstName">First Name:</label>
-    <input type="text" name="firstName" maxlength="20" value=<?php if(isset($_POST['firstName'])) echo $_POST['firstName']; ?>>
-    <label for="lastName">Last Name:</label>
-    <input type="text" name="lastName" maxlength="40" value=<?php if(isset($_POST['lastName'])) echo $_POST['lastName']; ?>>
-    <label for="storeName">Store Name:</label>
-    <input type="text" name="storeName" maxlength="40" value=<?php if(isset($_POST['storeName'])) echo $_POST['storeName']; ?>>
-    <label for="StoreDesc">Store Description:</label>
-    <input type="text" name="storeDesc" maxlength="40" value=<?php if(isset($_POST['storeDesc'])) echo $_POST['storeDesc']; ?>>
-    <label for="Address">Address:</label>
-    <input type="text" name="address" maxlength="40" value=<?php if(isset($_POST['address'])) echo $_POST['address']; ?>>
-    <input type="submit">
+<form method="POST" style="display:flex; flex-direction:column; width:500px;">
+            <input type="email" name="email" placeholder="Email"><br><br>
+            <input type="password" name="password" placeholder="password"><br><br>
+            <input type="password" name="confirmPassword" placeholder="Confirm password"><br><br>
+            <input type="text" name="storeName" placeholder="Store Name"><br><br>
+            <input type="text"  name="storeDescription" placeholder="store Description" id="des"><br><br>
+            <input type="text" name="firstName" placeholder="first Name"><br><br>
+            <input type="text" name="lastName" placeholder="last name"><br><br>
+            <input type="address" name="address" placeholder="address"><br><br>
+
+            <input type="submit" name="submit" value="submit">
 </form>
 
 <!-- NO TOUCHY - will implement javascript form validation later.
