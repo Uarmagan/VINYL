@@ -34,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)){
         if($type == 'owner'){
             $query = "SELECT o.ownerID, s.storeName, s.storeID  FROM owner o, store s  WHERE o.email = '$email' AND o.password = SHA1($pass)";
-            $url .= '/index.php';
+            $url .= '/catalog.php';
         }else{
             $query = "SELECT customerID, fName FROM customer WHERE email='$email' AND password = SHA1($pass)";
-            $url .= '/index.php';
+            $url .= '/catalog.php';
         }
         
         $result = mysqli_query($db, $query);
