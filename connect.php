@@ -1,11 +1,12 @@
-//database connection here
 <?php
-$server = 'cs.neiu.edu';
-$username = 'cs319_1_spr2018_group1';
-$password = 'cs319JS#@se';
-$databaseName = 'cs319_1_spr2018_group1_db';
 
-$dbc = new mysqli($server,$username, $password, $databaseName);
+DEFINE ('DB_USER', 'root');
+DEFINE ('DB_PASSWORD', '');
+DEFINE ('DB_HOST', 'localhost');
+DEFINE ('DB_NAME', 'vinyl');
 
-mysqli_set_charset($dbc, 'utf8');
 
+$db = @mysqli_connect (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) OR die ('Could not connect to
+MySQL: ' . mysqli_connect_error() );
+
+mysqli_set_charset($db, 'utf8');
