@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 function createNav(){
     echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand mr-auto" href="../index.php">VINYL</a>
