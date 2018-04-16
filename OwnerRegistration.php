@@ -1,4 +1,5 @@
 <?php
+session_start();
 $page_title = 'Owner Registration';
 include('includes/header.html');
 if($_SERVER['REQUEST_METHOD'] == 'POST'){

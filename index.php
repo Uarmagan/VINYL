@@ -1,1 +1,4 @@
-//this is a test commit
+<?php
+session_start();
+include('includes/header.html');
+include('includes/footer.html');
