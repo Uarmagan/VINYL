@@ -2,6 +2,9 @@
 $page_title = 'Catalog';
 include('includes/header.html');
 require('connect.php');
+if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
+    header('Location: login.php'); //redirect URL
+}
 ?>
 
 <div class="search">
