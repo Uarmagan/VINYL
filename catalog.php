@@ -1,12 +1,15 @@
 <?php
 $page_title = 'Catalog';
+session_start();
 include('includes/header.html');
 require('connect.php');
-if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
-    header('Location: login.php'); //redirect URL
-}
-?>
 
+//check if user is logged in
+if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
+    header('Location: login.php'); //redirect URL   
+}
+
+?>
 <div class="search">
     <input type="search" class="searchBar" size="100px" style="border:1px solid #333; margin:20px;" onkeyup="filterSearch()">
     <button>Search</button>

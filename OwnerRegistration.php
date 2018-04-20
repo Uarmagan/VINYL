@@ -18,9 +18,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     if(empty($_POST['confirmPassword'])){
-        $cpass = $_POST['ConfirmPassword'];
-    }else{
         $errors[] = "you forgot to confrim Password";
+    }else{
+        $cpass = $_POST['confirmPassword'];
     }
 
     if(empty($_POST['firstName'])){
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
     if($password == $cpass){
-        $password = SHI1($cpass);
+        $password = SHA1($cpass);
         $ownerQuery = "INSERT INTO owner(fName, lName, address, email,password) VALUES('$firstName', '$lastName', '$address', '$email', '$password')";
         
         $result = mysqli_query($db, $ownerQuery);
@@ -66,6 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             if($q){
                 echo"Store Created!";
+                header("Location: login.php");
             }
         }
 

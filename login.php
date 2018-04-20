@@ -3,7 +3,7 @@ $page_title = 'Login';
 include('includes/header.html');
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST["submit"])) {
 
     $errors = [];
     require('connect.php');
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }else{
         $errors[] = 'You forgot to enter type.';
     }
-
+    
     if (empty($email)) {
         $errors[] = 'You forgot to enter your email address.';
     } else {
@@ -28,36 +28,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $p = trim($pass);
     }
 
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-    $url = rtrim($url, '/\\');
-
     if (empty($errors)){
         if($type == 'owner'){
-            $query = "SELECT o.ownerID, s.storeName, s.storeID  FROM owner o, store s  WHERE o.email = '$email' AND o.password = SHA1($pass)";
-            $url .= '/catalog.php';
+            $query = "SELECT o.ownerID, s.storeName, s.storeID  FROM owner o, store s  WHERE o.Email='$email' AND o.password = SHA1('$pass') AND s.ownerID = o.ownerID";
+        }else if($type == 'customer'){
+            $query = "SELECT customerID, fName, email FROM customer WHERE email='$email' AND password = SHA1('$pass')";
         }else{
-            $query = "SELECT customerID, fName FROM customer WHERE email='$email' AND password = SHA1($pass)";
-            $url .= '/catalog.php';
+            echo ' something went wrong in the query';
         }
         
         $result = mysqli_query($db, $query);
-
-        if (@mysqli_num_rows($result) == 1){
+        if (mysqli_num_rows($result) == 1){
             while($row = mysqli_fetch_array($result)){
+                session_start();
                 if($type == 'owner'){
                     $_SESSION['ownerID']=$row['ownerID'];
                     $_SESSION['storeID']=$row['storeID'];
                     $_SESSION['storeName']=$row['storeName'];
                     $_SESSION['type'] = $type;
-                }else{
+                }
+                else if($type == 'customer'){
+                    echo 'putting the sessions in for customer ;';
                     $_SESSION['customerID'] = $row['customerID'];
                     $_SESSION['email'] = $row['email'];
+                    $_SESSION['fName'] = $row['fName'];
                     $_SESSION['type'] = $type;
                 }
+                else{
+                    header('Location: '.$_SERVER['PHP_SELF']);
+                    die;
+                }
             }
-            header("Location: $url");
+            header("Location: catalog.php");
         }else{
             echo 'username or password is incorrect!';
+            echo '<br>';
+            echo 'try again!';
         }    
     }else{
         echo '<h1>Error!</h1>';
