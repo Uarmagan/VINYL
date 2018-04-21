@@ -35,16 +35,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $lastName = trim($_POST['lastName']);
     }
 
-    if(empty($_POST['StoreName'])){
+    if(empty($_POST['storeName'])){
         $errors[] = 'you forgot to enter your store name';
+        echo"<br>StoreName";
     }else{
         $storeName = trim($_POST['storeName']);
     }
 
-    if(empty($_POST['StoreDesc'])){
+    if(empty($_POST['storeDescription'])){
         $errors[] = 'you forgot to enter your store description';
+        echo"<br>storeDec!!<br>";
     }else{
-        $StoreDescription = trim($_POST['storeDesc']);
+        $storeDescription = trim($_POST['storeDescriptionß']);
     }
 
     if(empty($_POST['address'])){
@@ -61,13 +63,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $result = mysqli_query($db, $ownerQuery);
         if($result)
         {
-           $getOwnerID = "SELECT ownerID FROM owner WHERE email = '$email'";
+            echo"<br>just check<br>";
+           $getOwnerID = "SELECT * FROM owner WHERE email ='$email'";
            $q = mysqli_query($db, $getOwnerID);
+           if($q){
+                $cget = mysqli_num_rows($q);
+                echo $cget;
+                echo"check one<br>";
+                if($cget>0){
+                    echo"check two<br>";
+                    $row= mysqli_fetch_assoc($q);
+                    $ownerID = $row['ownerID'];
+                    echo $ownerID;
 
-            if($q){
-                echo"Store Created!";
-                header("Location: login.php");
-            }
+
+                    $sq = "INSERT INTO store(storeName, storeAddress, description,ownerID )VALUES('$storeName','$address','$storeDescription', $ownerID)";
+                    $storeQuery = mysqli_query($db,$sq);
+                    if($storeQuery){
+                        echo"Store Created! Success";
+                    }
+                }
+
+           }
         }
 
     }
@@ -77,14 +94,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 ?>
 <h1>Owner Registration</h1>
 <form method="POST" style="display:flex; flex-direction:column; width:500px;">
-            <input type="email" name="email" placeholder="Email"><br><br>
-            <input type="password" name="password" placeholder="password"><br><br>
-            <input type="password" name="confirmPassword" placeholder="Confirm password"><br><br>
-            <input type="text" name="storeName" placeholder="Store Name"><br><br>
-            <input type="text"  name="storeDescription" placeholder="store Description" id="des"><br><br>
-            <input type="text" name="firstName" placeholder="first Name"><br><br>
-            <input type="text" name="lastName" placeholder="last name"><br><br>
-            <input type="address" name="address" placeholder="address"><br><br>
+            <input type="email" name="email" placeholder="Email" required><br><br>
+            <input type="password" name="password" placeholder="password"require><br><br>
+            <input type="password" name="confirmPassword" placeholder="Confirm password" require><br><br>
+            <input type="text" name="storeName" placeholder="Store Name" require><br><br>
+            <input type="text"  name="storeDescription" placeholder="store Description" id="des" require><br><br>
+            <input type="text" name="firstName" placeholder="first Name" require><br><br>
+            <input type="text" name="lastName" placeholder="last name" require><br><br>
+            <input type="address" name="address" placeholder="address" require><br><br>
 
             <input type="submit" name="submit" value="submit">
 </form>
