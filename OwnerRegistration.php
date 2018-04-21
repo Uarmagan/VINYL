@@ -63,20 +63,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $result = mysqli_query($db, $ownerQuery);
         if($result)
         {
-            echo"<br>just check<br>";
+            
            $getOwnerID = "SELECT * FROM owner WHERE email ='$email'";
            $q = mysqli_query($db, $getOwnerID);
            if($q){
                 $cget = mysqli_num_rows($q);
-                echo $cget;
-                echo"check one<br>";
                 if($cget>0){
                     echo"check two<br>";
                     $row= mysqli_fetch_assoc($q);
                     $ownerID = $row['ownerID'];
-                    echo $ownerID;
-
-
                     $sq = "INSERT INTO store(storeName, storeAddress, description,ownerID )VALUES('$storeName','$address','$storeDescription', $ownerID)";
                     $storeQuery = mysqli_query($db,$sq);
                     if($storeQuery){
