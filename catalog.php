@@ -9,6 +9,42 @@ if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
     header('Location: login.php'); //redirect URL   
 }
 
+if(isset($_POST["addToCart"]))
+ {
+      if(isset($_SESSION["cart"]))
+      {
+           $item_array_id = array_column($_SESSION["cart"], "itemID");
+           if(!in_array($_GET["id"], $item_array_id))
+           {
+             $count = count($_SESSION["cart"]);
+             $item_array = array(
+                    'itemID'               =>     $_GET["id"],
+                    'albumName'             =>     $_POST["album"],
+                    'artist'            =>     $_POST["artist"],
+                    'cost'            =>     $_POST["cost"],
+                    'quantity'         =>     $_POST["quantity"]
+                );
+                $_SESSION["cart"][$count] = $item_array;
+                echo $_POST["album"] . " is added to the shopping cart";
+           }
+           else
+           {
+                echo '<script>alert("Item Already Added")</script>';
+           }
+      }
+      else
+      {
+          $item_array = array(
+             'itemID'               =>     $_GET["id"],
+             'albumName'             =>     $_POST["album"],
+             'artist'            =>     $_POST["artist"],
+             'cost'            =>     $_POST["cost"],
+             'quantity'         =>     $_POST["quantity"]
+           );
+           $_SESSION["cart"][0] = $item_array;
+      }
+ }
+
 ?>
 <div class="search">
     <input type="search" class="searchBar" size="100px" style="border:1px solid #333; margin:20px;" onkeyup="filterSearch()">
@@ -29,13 +65,18 @@ if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
                 $storeResult = mysqli_query($db, $storeQuery);
                 
                 echo '<div class="card" style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; margin:20px; width:250px;">';
-                    echo '<form method="post" action="">';
+                    echo '<form method="post" action="catalog.php?action=add&id='.$itemRow["inventoryID"].'">';
                         echo '<h5 class="albumName">Album Name: '.$itemRow['albumName'].'</h5>';
-                        echo '<h5 class="artist"> Artist: '. $itemRow['artistName'] .'</h5>';
+                        echo '<h5 class="artistName"> Artist: '. $itemRow['artistName'] .'</h5>';
                         echo '<h5> Price: $'. $itemRow['cost'] .'</h5>';
                         echo '<h5> Qty Available: '. $itemRow['quantity'] .'</h5>';
                         echo '<input type="text" name="quantity" class="form-control" value="1" />';
-                        echo '<input type="submit" name="add_to_cart" style="margin-top:5px;" value="Add to Cart" />';
+                        echo '<input type="hidden" name="album" value="'. $itemRow['albumName'] .'"/>';
+                        echo '<input type="hidden" name="artist" value="'. $itemRow['artistName'] .'"/>';
+                        echo '<input type="hidden" name="cost" value="'. $itemRow['cost'] .'"/>';
+    
+                       
+                        echo '<input type="submit" name="addToCart" style="margin-top:5px;" value="Add to Cart" />';
                         echo '<select name="storeDropDown">';
                             while($storeRow = mysqli_fetch_array($storeResult)){
                                 echo '<option value="' . $storeRow['storeName'] .'">' . $storeRow['storeName'] .'</option>';

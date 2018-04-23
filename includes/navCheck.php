@@ -36,8 +36,8 @@ function createNav(){
         </ul>
     </nav>';
     if(isset($_SESSION['type'])){
-        return 'the type is ' . $_SESSION['type'];
+        return 'the type is ' . $_SESSION['type'] . '  ';
     }
-    return 'sessions is not set';
+    return 'sessions is not set    ';
     
 }
