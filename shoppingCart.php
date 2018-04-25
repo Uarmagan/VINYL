@@ -1,5 +1,6 @@
 <?php
 session_start();
+$page_title = 'Shopping Cart';
 include('includes/header.html');
 
 if(isset($_GET["action"]))
