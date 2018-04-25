@@ -2,11 +2,11 @@
 
 function createNav(){
     echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mr-auto" href="./index.php">VINYL</a>
+        <a class="navbar-brand mr-auto" href="./">VINYL</a>
         <ul class="navbar-nav">';
             if(@$_SESSION['type'] == 'customer'){
       echo '<li class="nav-item">
-                <a class="navbar-brand" href="./index.php">Hi ' . $_SESSION['fName'] . '</a>
+                <a class="navbar-brand" href="./">Hi ' . $_SESSION['fName'] . '</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./orders.php">Orders</a>
@@ -35,9 +35,9 @@ function createNav(){
         echo '</li>
         </ul>
     </nav>';
-    if(isset($_SESSION['type'])){
-        return 'the type is ' . $_SESSION['type'] . '  ';
-    }
-    return 'sessions is not set    ';
+//    if(isset($_SESSION['type'])){
+//        return 'the type is ' . $_SESSION['type'] . '  ';
+//    }
+//    return 'sessions is not set    ';
     
 }
