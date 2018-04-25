@@ -6,7 +6,7 @@ function createNav(){
         <ul class="navbar-nav">';
             if(@$_SESSION['type'] == 'customer'){
       echo '<li class="nav-item">
-                <a class="nav-link" href="#">Hi Customer</a>
+                <a class="navbar-brand" href="#">Hi ' . $_SESSION['fName'] . '</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Orders</a>
@@ -20,7 +20,7 @@ function createNav(){
             }
             if(@$_SESSION['type'] == 'owner'){
       echo '<li class="nav-item">
-                <a class="nav-link" href="#">StoreName</a>
+                <a class="navbar-brand" href="#">' .$_SESSION['storeName'] . '</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">inventory</a>
