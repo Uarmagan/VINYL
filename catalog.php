@@ -1,6 +1,6 @@
 <?php
-$page_title = 'Catalog';
 session_start();
+$page_title = 'Catalog';
 include('includes/header.html');
 require('connect.php');
 
