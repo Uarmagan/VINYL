@@ -47,8 +47,12 @@ if(isset($_POST["addToCart"]))
 
 ?>
 <div class="search">
+<<<<<<< HEAD
     <input placeholder="Search.." type="search" class="searchBar" size="100px" style="border:1px solid #333; margin:20px;" onkeyup="filterSearch()">
     
+=======
+    <input type="search" class="searchBar"  style="border:1px solid #333; margin:20px;width: 80%" placeholder=" Search by Album Name" onkeyup="filterSearch()">
+>>>>>>> ddc8a2e535808a167f2369c5a69178f209473688
 </div>
 
 <div class="items">
