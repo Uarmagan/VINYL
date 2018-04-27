@@ -1,8 +1,8 @@
 
     <?php
        session_start();
-       include('includes/header.html');
-       $page_title = 'Add New Inventory';
+       //include('includes/header.html');
+       
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
             require('connect.php');
@@ -58,15 +58,18 @@
                         $row = mysqli_fetch_assoc($runGetInventoryID);
                         
                         $inventoryID = $row['inventoryID'];
-                        echo $inventoryID;
+                        echo "InventoryID: $inventoryID";
                         
                         $storeID = $_SESSION['storeID'];
-                        
-                        $qStore = "INSERT INTO storeInventory(storeID, inventoryID)VALUES($storeID,'$inventoryID')";
+                        echo "<br> storeID:  $storeID <br>";
+                        $qStore = "INSERT INTO storeInventory(storeID, inventoryID)VALUES('$storeID','$inventoryID')";
                         $rQStore = mysqli_query($db, $qStore);
                         
                         if($rQStore){
-                            echo"WE ARE COMPLETED!!";
+                            echo"WE ARE COMPLETED";
+                            header("Location: ownerDelete.php");
+                        }else{
+                            echo"FAIL STOREINVENTORY<br>";
                         }
                         
                     }
