@@ -10,11 +10,13 @@
 </head>
 <body>
     <form method="POST">
-        <input name="albumName" placeholder="Album Name">
-        <input name="artistName" placeholder="Artist Name">
-        <input name="cost" placeholder="Cost">
-        <input name="yearRelease" placeholder="">
-        <input name="" placeholder="">
+        <input type="text" name="albumName" placeholder="Album Name">
+        <input type="text" name="artistName" placeholder="Artist Name">
+        <input type="number" name="cost" placeholder="Cost">
+        <input type="number" name="yearRelease" placeholder="Year Release">
+        <input type="number" name="qty" placeholder="Quantity">
+        
+        <input type ="submit">
     </form>
 </body>
 </html>

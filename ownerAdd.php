@@ -1,20 +1,104 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <?php
+       session_start();
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $errors = array();
+            require('connect.php');
+            
+            
+            
+            if(empty($_POST['albumName'])){
+                $errors[] = 'you forgot to enter your Album Name';
+            }else{
+                $albumName = trim($_POST['albumName']);
+            }
 
+            if(empty($_POST['artistName']))
+            {
+                $errors[] = "You forgot to enter Artist Name";
+            }else{
+                $artistName = trim($_POST['artistName']);
+            }
+
+            if(empty($_POST['cost']))
+            {
+                $errors[] = "You forgot to Enter Cost";
+            }else{
+                $cost = trim($_POST['cost']);
+            }
+
+            if(empty($_POST['yearRelease'])){
+                $errors[] = "you forgot to enter the YearRelease";
+            }else{
+                $yearRelease = trim($_POST['yearRelease']);
+            }
+
+            if(empty($_POST['qty'])){
+                $errors[] = "you forgot to enter Quantity";
+            }else{
+                $qty = trim($_POST['qty']);
+            }
+
+            if(count($errors)<1 ){
+                
+             $q = "INSERT INTO inventory(albumName, artistName, cost, quantity)VALUES('$albumName', '$artistName', '$cost', '$qty')";   
+             $result = mysqli_query($db, $q);   
+            
+              
+             if($result){
+                 echo"added";
+                
+                $getInventoryID = "SELECT inventoryID FROM inventory WHERE albumName = '$albumName' AND artistName = '$artistName' AND cost = '$cost' AND quantity = '$qty'";
+                $runGetInventoryID = mysqli_query($db, $getInventoryID);
+                if($runGetInventoryID){
+                    $getID = mysqli_num_rows($runGetInventoryID);
+                    if($getID > 0){
+                        $row = mysqli_fetch_row($runGetInventoryID);
+                        $inventoryID = $row['inventoryID'];
+                        $storeID = $_SESSION['storeID'];
+                        
+                        $qStore = "INSERT INTO storeInventory(storeID, inventoryID)VALUES($storeID,'$inventoryID')";
+                        $rQStore = mysqli_query($db, $qStore);
+                        
+                        if($rQStore){
+                            echo"WE ARE COMPLETED!!";
+                        }
+
+                    }
+                }
+
+
+                 
+             }
+
+
+
+            }else{
+                for($i =0; $i <= count($errors)-1; $i++)
+                {
+                    echo $errors[$i]."<br><br>";
+                }
+            }
+        }
 
 
 
     ?>
 </head>
 <body>
+    <?php
+        
+    ?>
     <form method="POST">
-        <input name="" placeholder="">
-        <input name="" placeholder="">
-        <input name="" placeholder="">
-        <input name="" placeholder="">
-        <input name="" placeholder="">
+        <input type="text" name="albumName" placeholder="Album Name"><br><br>
+        <input type="text" name="artistName" placeholder="Artist Name"><br><br>
+        <input type="number" name="cost" placeholder="Cost"><br><br>
+        <input type="number" name="yearRelease" placeholder="Year Release"><br><br>
+        <input type="number" name="qty" placeholder="Quantity"><br><br>
+
+        <input type ="submit" >
     </form>
 </body>
 </html>
