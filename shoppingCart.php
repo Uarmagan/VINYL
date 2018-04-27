@@ -77,15 +77,10 @@ if(isset($_GET["action"]))
             }
         ?>
         <tr>
-<<<<<<< HEAD
-            <td colspan="3" align="right">Total</td>
-            <td align="right">$<?php echo number_format($total, 2); ?></td>
-=======
             <td colspan="3"></td>
             <td>Total</td>
             <td>$ <?php echo number_format($total, 2); ?></td>
             <td></td>
->>>>>>> ddc8a2e535808a167f2369c5a69178f209473688
         </tr>
         <?php
         }
@@ -101,26 +96,6 @@ if(isset($_GET["action"]))
         ?>
 
     </table>
-<<<<<<< HEAD
-    <div style="margin-left:100px;">
-        <h2>billing info</h2>
-        <form action="shoppingCart.php" method="POST">
-        <?php 
-            if($_SESSION['customerID']){
-                $ID = trim($_SESSION['customerID']);
-                $billingQuery = "SELECT `fName`, `lName`, `address` FROM customer WHERE customerID =" . $ID;
-                $result = mysqli_query($db, $billingQuery);
-                if($result){
-                    while($row = mysqli_fetch_array($result)){
-                        echo '<p>' . $row['fName'] . ' ' . $row['lName'] .'</p>';
-                        echo '<p>' . $row['address'] . '</p>';
-                    }
-                }
-            }   
-        ?>
-        <input type="submit" name="submit" value="place order">
-        </form>
-=======
     <div style="width:60%;float: left;margin: 20px 20% 20px 20%">
         <input required class="btn btn-primary btn-lg btn-block" type="submit" name="toShop" value="Add Items To Your Order!"
                onclick="window.location.href='catalog.php'">
@@ -155,7 +130,6 @@ if(isset($_GET["action"]))
 <div style="width:100%">
     <div style="width:60%;float: left;margin: 20px 20% auto 20%">
         <input required class="btn btn-primary btn-lg btn-block" type="submit" name="checkout" value="Checkout!">
->>>>>>> ddc8a2e535808a167f2369c5a69178f209473688
     </div>
 </div>
 <?php
