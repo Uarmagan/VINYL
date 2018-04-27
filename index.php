@@ -9,7 +9,7 @@ include('includes/header.html');?>
 //check if user is logged in
 if(!isset($_SESSION['type'])) {
     echo '<button style="margin: 100px auto 20px auto; width: 100%;min-width: 300px;max-width: 800px"
-            type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.href=\'login . php\'">Click Here to Login</button>
+            type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.href=\'login.php\'">Click Here to Login</button>
     <p class="text-center" style="font-size: larger">I want to register as a...</p>
     <div style="margin: auto; width: 100%;min-width: 300px;max-width: 800px">
         <button type="button" class="btn btn-secondary btn-lg" style="width: 40%;float: left;margin: 0% 5% 0 5%"
