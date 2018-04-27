@@ -1,7 +1,7 @@
 
     <?php
        session_start();
-       //include('includes/header.html');
+       include('includes/header.html');
        
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
@@ -67,7 +67,7 @@
                         
                         if($rQStore){
                             echo"WE ARE COMPLETED";
-                            header("Location: ownerDelete.php");
+                            header("Location: ownerUpdate.php");
                         }else{
                             echo"FAIL STOREINVENTORY<br>";
                         }

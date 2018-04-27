@@ -6,7 +6,6 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $errors = array();
         require('connect.php');
-        
 
         if(empty($_POST['albumName'])){
             $errors[] = 'you forgot to enter your Album Name';
@@ -80,17 +79,9 @@
             }else{
                 echo"No Such Inventory!";
             }
-
-
         }else{
             echo"Errors!<br>";
         }
-    
-    
-    
-    
-    
-    
     
     }
 
