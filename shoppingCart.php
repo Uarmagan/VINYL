@@ -19,6 +19,16 @@ if(isset($_GET["action"]))
            }
       }
  }
+
+ if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(!empty($_SESSION["cart"])){
+        $date = date('Y-m-d H:i:s');
+        $orderQuery = 'INSERT INTO orders(orderDate, customerID) VALUES ({$date}, $_SESSION["customerID"])';
+        //insert order
+    }else{
+        echo '<script>alert("shopping cart empty")</script>';
+    }
+ }
 ?>
 <h3>Order Details</h3>
 
@@ -52,7 +62,7 @@ if(isset($_GET["action"]))
         ?>
         <tr>
             <td colspan="3" align="right">Total</td>
-            <td align="right">$ <?php echo number_format($total, 2); ?></td>
+            <td align="right">$<?php echo number_format($total, 2); ?></td>
         </tr>
         <?php
         }
@@ -60,6 +70,7 @@ if(isset($_GET["action"]))
     </table>
     <div style="margin-left:100px;">
         <h2>billing info</h2>
+        <form action="shoppingCart.php" method="POST">
         <?php 
             if($_SESSION['customerID']){
                 $ID = trim($_SESSION['customerID']);
@@ -73,7 +84,8 @@ if(isset($_GET["action"]))
                 }
             }   
         ?>
-        <button>Place Order</button>
+        <input type="submit" name="submit" value="place order">
+        </form>
     </div>
 </div>
 <?php
