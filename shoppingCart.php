@@ -25,15 +25,6 @@ if(isset($_GET["action"]))
       }
  }
 
- if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(!empty($_SESSION["cart"])){
-        $date = date('Y-m-d H:i:s');
-        $orderQuery = 'INSERT INTO orders(orderDate, customerID) VALUES ({$date}, $_SESSION["customerID"])';
-        //insert order
-    }else{
-        echo '<script>alert("shopping cart empty")</script>';
-    }
- }
 ?>
 <h2 style="text-align: center;margin: 10px">Order Details</h2>
 
@@ -127,10 +118,52 @@ if(isset($_GET["action"]))
     ?>
 
 </div>
-<div style="width:100%">
-    <div style="width:60%;float: left;margin: 20px 20% auto 20%">
-        <input required class="btn btn-primary btn-lg btn-block" type="submit" name="checkout" value="Checkout!">
+<form action="shoppingCart.php" method="POST">
+    <div style="width:100%">
+        <div style="width:60%;float: left;margin: 20px 20% auto 20%">
+            <input required class="btn btn-primary btn-lg btn-block" type="submit" name="checkout" value="Checkout!">
+        </div>
     </div>
-</div>
+</form>
 <?php
 include('includes/footer.html');
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(!empty($_SESSION["cart"])){
+        date_default_timezone_set('America/Chicago');
+        $date = date('Y-m-d');
+        $customerID = $_SESSION["customerID"];
+        $orderQuery = "INSERT INTO `orders`(`orderDate`, `customerID`, `total`) VALUES ('$date', '$customerID', '$total')";
+        if($orderResult = mysqli_query($db, $orderQuery)){
+            $getOrderID = "SELECT DISTINCT orderID FROM orders WHERE customerID = '$customerID'";
+            if($getOrderIDResult = mysqli_query($db, $getOrderID)){
+                //get the orderID
+                while($row = mysqli_fetch_array($getOrderIDResult)){
+                    $orderID = $row['orderID'];
+                }
+
+                //loop through items and insert inventoryID
+                foreach($_SESSION["cart"] as $keys => $values)
+                {
+                    $inventoryID = $values["itemID"];
+                    $orderItemQuery = "INSERT INTO orderItem(orderID, inventoryID) VALUES ('$orderID', '$inventoryID')";
+                    $orderItemResult = mysqli_query($db, $orderItemQuery);
+                }
+
+                //if inserted orderItems into database
+                if($orderItemResult){
+                    echo '<script>alert("it fuckin worked")</script>';
+                    header("Location: catalog.php");
+                }else{
+                    echo '<script>alert("orderItems did not insert")</script>';
+                }
+            }else{
+                echo 'Get Order ID did not work';
+            }
+        }else{
+            echo 'Order Query did not work ', $_SESSION["customerID"];
+        }
+    }else{
+        echo '<script>alert("shopping cart empty")</script>';
+    }
+ }
