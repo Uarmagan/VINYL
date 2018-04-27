@@ -1,8 +1,29 @@
 <?php 
+session_start();
 $page_title = 'Login';
-include('includes/header.html');
+include('includes/header.html');?>
 
+<h1 style="text-align: center;margin-top: 8%">Login</h1>
+<div style="margin: auto; width: 30%;min-width: 300px">
+    <div class="form-group">
+        <form class = "form-horizontal" action="login.php" method="post">
+            <!--            <label for="email">Email Address:</label>-->
+            <input required class="form-control" type="email" name="email" size="20" maxlength="60" placeholder="Email" style="margin-top: 20px"
+                   value=<?php if(isset($_POST['email'])) echo $_POST['email']; ?>>
+            <!--            <label for="pass">Password:</label>-->
+            <input required class="form-control" type="password" name="pass" size="20" maxlength="20" placeholder="Password">
+            <!--            <a>I am a...</a>-->
+            <select required class="form-control" name="type" style="margin-top: 10px">
+                <option disabled selected value="null"> I am a...<!-- -- select a user type -- --></option>
+                <option value="customer">Customer</option>
+                <option value="owner">Owner</option>
+            </select>
+            <input type="submit" name="submit" value="Login" style="width: 100%;margin-top: 10px" class="btn btn-primary btn-lg btn-block">
+        </form>
+    </div>
+</div>
 
+<?php
 if (isset($_POST["submit"])) {
 
     $errors = [];
@@ -66,30 +87,13 @@ if (isset($_POST["submit"])) {
             echo 'try again!';
         }    
     }else{
-        echo '<h1>Error!</h1>';
-        echo '<p class="error">The following error(s) occurred:<br>';
+        echo '<p style="color: red;text-align: center " class="error">The following error(s) occurred:<br>';
         foreach ($errors as $msg) {
             echo " - $msg<br>\n";
         }
-        echo '</p><p>Please try again.</p>';
+        echo '</p>';
     }
 }
 
 ?>
-<h1>Login</h1>
-    <div>
-        <form action="login.php" method="post">
-            <label for="email">Email Address:</label>
-            <input type="email" name="email" size="20" maxlength="60" value=<?php if(isset($_POST['email'])) echo $_POST['email']; ?>>
-            <label for="pass">Password:</label>
-            <input type="password" name="pass" size="20" maxlength="20">
-            <select name="type">
-                <option disabled selected value="null"> -- select a user type -- </option>
-                <option value="customer">Customer</option>
-                <option value="owner">Owner</option>
-            </select>
-            <input type="submit" name="submit" value="Login">
-        </form>
-    </div>
-
 <?php include('includes/footer.html');

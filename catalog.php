@@ -1,6 +1,6 @@
 <?php
-$page_title = 'Catalog';
 session_start();
+$page_title = 'Catalog';
 include('includes/header.html');
 require('connect.php');
 
@@ -47,8 +47,7 @@ if(isset($_POST["addToCart"]))
 
 ?>
 <div class="search">
-    <input type="search" class="searchBar" size="100px" style="border:1px solid #333; margin:20px;" onkeyup="filterSearch()">
-    <button>Search</button>
+    <input type="search" class="searchBar"  style="border:1px solid #333; margin:20px;width: 80%" placeholder=" Search by Album Name" onkeyup="filterSearch()">
 </div>
 
 <div class="items">

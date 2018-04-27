@@ -1,4 +1,5 @@
 <?php
+session_start();
 $page_title = 'Customer Registration';
 include('includes/header.html');
 
@@ -61,16 +62,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 ?>
 
-<h1>Customer Registration</h1>
-<form method="POST" style="display:flex; flex-direction:column; width:500px;">
-            <input type="email" name="email" placeholder="Email"><br><br>
-            <input type="password" name="password" placeholder="password"><br><br>
-            <input type="password" name="confirmPassword" placeholder="Confirm password"><br><br>
-            <input type="text" name="firstName" placeholder="first Name"><br><br>
-            <input type="text" name="lastName" placeholder="last name"><br><br>
-            <input type="address" name="address" placeholder="address"><br><br>
-
-            <input type="submit" name="submit" value="submit">
-</form>
-
+<h1 style="text-align: center;margin-top: 8%">Customer Registration</h1>
+<div style="margin: auto; width: 30%;min-width: 300px" class="form-group" >
+    <form method="POST" class = "form-horizontal">
+        <input required class="form-control" type="text" name="firstName" placeholder="First Name" style="margin-top: 20px">
+        <input required class="form-control" type="text" name="lastName" placeholder="Last Name">
+        <input required class="form-control" type="address" name="address" placeholder="Street Address">
+        <input required class="form-control" type="email" name="email" placeholder="Email" style="margin-top: 20px">
+        <input required class="form-control" type="password" name="password" placeholder="Password">
+        <input required class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" style="margin-bottom: 20px">
+        <input required class="btn btn-primary btn-lg btn-block" type="submit" name="submit" value="Submit">
+    </form>
+</div>
 <?php include('includes/footer.html');
