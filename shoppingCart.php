@@ -153,6 +153,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 //if inserted orderItems into database
                 if($orderItemResult){
                     echo '<script>alert("it fuckin worked")</script>';
+                    unset($_SESSION['cart']);
                     header("Location: catalog.php");
                 }else{
                     echo '<script>alert("orderItems did not insert")</script>';
