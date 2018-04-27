@@ -80,7 +80,12 @@ if (isset($_POST["submit"])) {
                     die;
                 }
             }
-            header("Location: catalog.php");
+
+
+            if($type == "customer")
+                header("Location: catalog.php");
+            else
+                header("Location: ownerAdd.php");
         }else{
             echo 'username or password is incorrect!';
             echo '<br>';

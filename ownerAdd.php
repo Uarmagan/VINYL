@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
+
     <?php
        session_start();
+       include('includes/header.html');
+       $page_title = 'Add New Inventory';
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
             require('connect.php');
@@ -55,8 +55,11 @@
                 if($runGetInventoryID){
                     $getID = mysqli_num_rows($runGetInventoryID);
                     if($getID > 0){
-                        $row = mysqli_fetch_row($runGetInventoryID);
+                        $row = mysqli_fetch_assoc($runGetInventoryID);
+                        
                         $inventoryID = $row['inventoryID'];
+                        echo $inventoryID;
+                        
                         $storeID = $_SESSION['storeID'];
                         
                         $qStore = "INSERT INTO storeInventory(storeID, inventoryID)VALUES($storeID,'$inventoryID')";
@@ -65,7 +68,7 @@
                         if($rQStore){
                             echo"WE ARE COMPLETED!!";
                         }
-
+                        
                     }
                 }
 
@@ -78,28 +81,21 @@
             }else{
                 for($i =0; $i <= count($errors)-1; $i++)
                 {
-                    echo $errors[$i]."<br><br>";
+                    echo $errors[$i]."<br>";
                 }
             }
         }
-
-
-
-    ?>
-</head>
-<body>
-    <?php
-        
-    ?>
+    ?> 
     <form method="POST">
-        <input type="text" name="albumName" placeholder="Album Name"><br><br>
-        <input type="text" name="artistName" placeholder="Artist Name"><br><br>
-        <input type="number" name="cost" placeholder="Cost"><br><br>
-        <input type="number" name="yearRelease" placeholder="Year Release"><br><br>
-        <input type="number" name="qty" placeholder="Quantity"><br><br>
+        <br><br>
+        
+        <input require type="text" name="albumName" placeholder="Album Name"><br><br>
+        <input require type="text" name="artistName" placeholder="Artist Name"><br><br>
+        <input require type="number" name="cost" placeholder="Cost"><br><br>
+        <input require type="number" name="yearRelease" placeholder="Year Release"><br><br>
+        <input require type="number" name="qty" placeholder="Quantity"><br><br>
 
         <input type ="submit" >
     </form>
-</body>
-</html>
+    <?php include('includes/footer.html');
 

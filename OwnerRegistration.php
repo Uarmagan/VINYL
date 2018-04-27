@@ -45,9 +45,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(empty($_POST['storeDescription'])){
         $errors[] = 'you forgot to enter your store description';
-        echo"<br>storeDec!!<br>";
     }else{
-        $storeDescription = trim($_POST['storeDescriptionß']);
+        $storeDescription = trim($_POST['storeDescription']);
     }
 
     if(empty($_POST['address'])){
