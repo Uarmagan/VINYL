@@ -1,6 +1,6 @@
  <?php
     session_start();
-    //include('includes/header.html');
+    include('includes/header.html');
     $page_title = 'Delete Inventory';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
