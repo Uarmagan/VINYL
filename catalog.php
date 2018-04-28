@@ -27,7 +27,7 @@ if(isset($_POST["addToCart"]))
 
                 );
                 $_SESSION["cart"][$count] = $item_array;
-                echo $_POST["album"] . " is added to the shopping cart";
+                //echo $_POST["album"] . " is added to the shopping cart";
            }
            else
            {
@@ -49,44 +49,55 @@ if(isset($_POST["addToCart"]))
  }
 
 ?>
-<div class="search">
-    <input type="search" class="searchBar"  style="border:1px solid #333; margin:20px;width: 80%" placeholder=" Search by Album Name" onkeyup="filterSearch()">
-</div>
 
-<div class="items">
+<div class="items" style="width: 90%;margin: auto 5% auto 5% ">
+    <input type="search" class="searchBar"  style="border:1px solid #333; width: 60%; margin: 20px 20% auto 20%" placeholder=" Search by Album Name" onkeyup="filterSearch()">
     <?php
         $itemQuery = "SELECT * FROM inventory WHERE quantity > 0";
         if ($ItemResult = mysqli_query($db, $itemQuery)) {
 
-            echo '<div style="display:flex; flex-wrap:wrap;">';
+            echo '<div style="display: grid; width: 100%; grid-template-columns: repeat(3, 1fr);">';
 
             while($itemRow = mysqli_fetch_array($ItemResult)){
 
-                $storeQuery = "SELECT  DISTINCT s.storeName FROM store s, storeInventory x, inventory i WHERE s.storeID = x.storeID AND {$itemRow['inventoryID']} = x.inventoryID";
-                 
+                $storeQuery = "SELECT  DISTINCT s.storeName FROM store s, storeInventory x, inventory i WHERE s.storeID = x.storeID 
+                  AND {$itemRow['inventoryID']} = x.inventoryID";
+
                 $storeResult = mysqli_query($db, $storeQuery);
-                
-                echo '<div class="card" style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; margin:20px; width:250px;">';
-                    echo '<form method="post" action="catalog.php?action=add&id='.$itemRow["inventoryID"].'">';
-                        echo '<h5 class="albumName">Album Name: '.$itemRow['albumName'].'</h5>';
-                        echo '<h5 class="artistName"> Artist: '. $itemRow['artistName'] .'</h5>';
-                        echo '<h5> Price: $'. $itemRow['cost'] .'</h5>';
-                        echo '<h5> Qty Available: '. $itemRow['quantity'] .'</h5>';
-                        echo '<input type="text" name="quantity" class="form-control" value="1" />';
-                        echo '<input type="hidden" name="album" value="'. $itemRow['albumName'] .'"/>';
-                        echo '<input type="hidden" name="artist" value="'. $itemRow['artistName'] .'"/>';
-                        echo '<input type="hidden" name="cost" value="'. $itemRow['cost'] .'"/>';
-    
-                       
-                        echo '<input type="submit" name="addToCart" style="margin-top:5px;" value="Add to Cart" />';
-                        echo '<select name="storeDropDown">';
-                            while($storeRow = mysqli_fetch_array($storeResult)){
-                                echo '<option value="' . $storeRow['storeName'] .'">' . $storeRow['storeName'] .'</option>';
-                            }       
-                        echo '</select>';
-                        echo '<hr>';
-                    echo '</form>';
-                echo '</div>';
+
+                echo '<div class="card" style="width: 80%; margin: 20px;">
+                        <form method="post" action="catalog.php?action=add&id='.$itemRow["inventoryID"].'">
+                            <ul class="list-group">
+                                <li class="list-group-item" style="color: white;background-color: black; text-align: center"><strong>Song Name</strong></li>
+                                <li class="list-group-item" style="background-color: whitesmoke"> Price: <strong style="float: right">$'. $itemRow['cost'] .'</strong></li>
+                                <li class="list-group-item"> Album: <strong style="float: right">'.$itemRow['albumName'].'</strong></li>
+                                <li class="list-group-item"> Artist: <strong style="float: right">'. $itemRow['artistName'] .'</strong></li>
+                                <li class="list-group-item"> Available: <strong style="float: right">'. $itemRow['quantity'] .'</strong></li>
+                                <li class="list-group-item" >
+                                    <input style="width: 30%;min-width: 25px;float: left" type="number" name="quantity" class="form-control" value="1" />
+                                    <input type="hidden" name="album" value="'. $itemRow['albumName'] .'"/>
+                                    <input type="hidden" name="artist" value="'. $itemRow['artistName'] .'"/>
+                                    <input   type="hidden" name="cost" value="'. $itemRow['cost'] .'"/>  
+                                    <select name="storeDropDown" class="custom-select" style="width: 70%;float: left">';
+                while($storeRow = mysqli_fetch_array($storeResult)){
+                    echo '<option value="' . $storeRow['storeName'] .'">' . $storeRow['storeName'] .'</option>';
+                }
+                echo '</select>
+                    </li>
+                    <li style="background-color: whitesmoke; list-style-type: none">';
+
+                    $added = "select * from inventory where inventoryID = ".$itemRow["inventoryID"];
+                    $result = mysqli_query($db,$added);
+                    $already_added = mysqli_fetch_all($result)[0];
+//                    echo '<p>'.implode(" ",$already_added).'</p>';
+                    if($already_added)//($itemRow["inventoryID"] != 2)
+                        echo '<input type="submit" name="addToCart" class="btn btn-primary" style="margin: 10px 20% 10px 20%;width: 60%;" value="Add to Cart" />';
+                    else
+                        echo '<input type="submit" name="addToCart" class="btn btn-secondary" style="margin: 10px 20% 10px 20%;width: 60%;" value="Added to Cart" />';
+                    echo '</li>
+                    </ul>
+                    </form>
+                    </div>';
             }
             echo '</div>';
 
@@ -104,8 +115,8 @@ if(isset($_POST["addToCart"]))
         const cards = document.querySelectorAll('.card');
         if(search != null){
             cards.forEach( element => {
-                const elementName = element.querySelectorAll('.albumName');
-                const htmlTerm = elementName[0].innerText;
+                const elementName = element.querySelectorAll('.list-group-item');
+                const htmlTerm = elementName[2].innerText; //index from li
                 const regx = /(?<=: )[^\]]+/g;
                 const albumName = htmlTerm.match(regx)[0];
 

@@ -101,8 +101,7 @@ if(isset($_GET["action"]))
         $ID = trim($_SESSION['customerID']);
         $billingQuery = "SELECT `fName`, `lName`, `address` FROM customer WHERE customerID =" . $ID;
         $result = mysqli_query($db, $billingQuery);
-//        $card = "";                     //TODO test $card
-//        $card = "XXXX-XXXX-XXXX-1111";  // test $card
+        $card = "XXXX-XXXX-XXXX-1111";  //TODO test $card
         if($result){
             while($row = mysqli_fetch_array($result)){
                 echo '<table style="width:80%;float: left;margin: auto 10% auto 10%" class="table">';
