@@ -28,8 +28,11 @@ function createNav(){
             }
             echo '<li class="nav-item">';
         if(isset($_SESSION['type'])){
+            
             echo '<a class="nav-link" href="./logout.php">Logout</a>';
+            
         }else{
+            echo '<a class="nav-link" href="./customerRegistration.php">Register</a>';
             echo '<a class="nav-link" href="./login.php">Login</a>';
         }
         echo '</li>
