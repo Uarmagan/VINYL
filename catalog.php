@@ -82,7 +82,7 @@ if(isset($_POST["addToCart"]))
                                     <input type="hidden" name="album" value="'. $itemRow['albumName'] .'"/>
                                     <input type="hidden" name="artist" value="'. $itemRow['artistName'] .'"/>
                                     <input   type="hidden" name="cost" value="'. $itemRow['cost'] .'"/>  
-                                    <select name="storeDropDown" class="custom-select" style="width: 70%;float: left">';
+                                    <select required name="storeDropDown" class="custom-select" style="width: 70%;float: left">';
                 while($storeRow = mysqli_fetch_array($storeResult)){
                     echo '<option value="' . $storeRow['storeName'] .'">' . $storeRow['storeName'] .'</option>';
                 }
