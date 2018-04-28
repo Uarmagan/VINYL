@@ -22,7 +22,9 @@ if(isset($_POST["addToCart"]))
                     'albumName'             =>     $_POST["album"],
                     'artist'            =>     $_POST["artist"],
                     'cost'            =>     $_POST["cost"],
-                    'quantity'         =>     $_POST["quantity"]
+                    'quantity'         =>     $_POST["quantity"],
+                    'store'            =>      $_POST["storeDropDown"]
+
                 );
                 $_SESSION["cart"][$count] = $item_array;
                 //echo $_POST["album"] . " is added to the shopping cart";
@@ -39,7 +41,8 @@ if(isset($_POST["addToCart"]))
              'albumName'             =>     $_POST["album"],
              'artist'            =>     $_POST["artist"],
              'cost'            =>     $_POST["cost"],
-             'quantity'         =>     $_POST["quantity"]
+             'quantity'         =>     $_POST["quantity"],
+             'store'            =>      $_POST["storeDropDown"]
            );
            $_SESSION["cart"][0] = $item_array;
       }

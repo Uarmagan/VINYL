@@ -43,6 +43,7 @@ if(isset($_GET["action"]))
                 <tr style="width: 100% ">
                     <th>Album Name</th>
                     <th>Artist</th>
+                    <th>Store</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
@@ -59,6 +60,7 @@ if(isset($_GET["action"]))
         <tr>
             <td><?php echo $values["albumName"]; ?></td>
             <td><?php echo $values["artist"]; ?></td>
+            <td><?php echo $values["store"]; ?></td>
             <td><?php echo $values["quantity"]; ?></td>
             <td>$ <?php echo $values["cost"]; ?></td>
             <td>$ <?php echo number_format((float) $values["quantity"] * (float) $values["cost"], 2); ?></td>
@@ -68,7 +70,7 @@ if(isset($_GET["action"]))
             }
         ?>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <td>Total</td>
             <td>$ <?php echo number_format($total, 2); ?></td>
             <td></td>
@@ -125,7 +127,7 @@ if(isset($_GET["action"]))
     </div>
 </form>
 <?php
-include('includes/footer.html');
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(!empty($_SESSION["cart"])){
@@ -153,7 +155,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 if($orderItemResult){
                     echo '<script>alert("it fuckin worked")</script>';
                     unset($_SESSION['cart']);
-                    header("Location: catalog.php");
+                    header("Location: ordersConf.html");
                 }else{
                     echo '<script>alert("orderItems did not insert")</script>';
                 }
@@ -167,3 +169,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo '<script>alert("shopping cart empty")</script>';
     }
  }
+
+
+ include('includes/footer.html');
