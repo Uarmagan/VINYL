@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $result = mysqli_query($db, $sql);
 
         if($result){
-            echo"Success.....letter this will go to another page!";
+            header("Location:login.php");;
         }
     }else{
         $errors [] = "PassWords do not match";
