@@ -26,12 +26,16 @@ if(isset($_POST["addToCart"]))
                     'store'            =>      $_POST["storeDropDown"]
 
                 );
-                $_SESSION["cart"][$count] = $item_array;
-                //echo $_POST["album"] . " is added to the shopping cart";
+                if($_POST["quantity"] >= 1){
+                    $_SESSION["cart"][$count] = $item_array;
+                }else{
+                    echo '<script>alert("Item less than 0 cannot be added")</script>';
+                }
+                
            }
            else
            {
-                echo '<script>alert("Item Already Added")</script>';
+                //echo '<script>alert("Item Already Added")</script>';
            }
       }
       else
