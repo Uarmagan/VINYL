@@ -1,7 +1,12 @@
 <?php 
 session_start();
 $page_title = 'Login';
-include('includes/header.html');?>
+include('includes/header.html');
+if(isset($_SESSION['type'])){
+    echo '<script>alert("You are already logged in")</script>';
+    header("Location: index.php");
+}
+?>
 
 <h1 style="text-align: center;margin-top: 8%">Login</h1>
 <div style="margin: auto; width: 30%;min-width: 300px">
