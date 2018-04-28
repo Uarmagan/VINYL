@@ -35,7 +35,7 @@ if(isset($_POST["addToCart"]))
            }
            else
            {
-                //echo '<script>alert("Item Already Added")</script>';
+                echo '<script>alert("Item Already Added")</script>';
            }
       }
       else
