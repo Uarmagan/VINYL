@@ -45,9 +45,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(empty($_POST['storeDescription'])){
         $errors[] = 'you forgot to enter your store description';
-        echo"<br>storeDec!!<br>";
     }else{
-        $storeDescription = trim($_POST['storeDescriptionß']);
+        $storeDescription = trim($_POST['storeDescription']);
     }
 
     if(empty($_POST['address'])){
@@ -70,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
            if($q){
                 $cget = mysqli_num_rows($q);
                 if($cget>0){
-                    echo"check two<br>";
+                    
                     $row= mysqli_fetch_assoc($q);
                     $ownerID = $row['ownerID'];
                     $sq = "INSERT INTO store(storeName, storeAddress, description,ownerID )VALUES('$storeName','$address','$storeDescription', $ownerID)";
