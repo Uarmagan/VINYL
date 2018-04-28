@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 13, 2018 at 04:36 AM
+-- Generation Time: Apr 28, 2018 at 07:15 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.1.12
 
@@ -98,9 +98,22 @@ INSERT INTO `inventory` (`inventoryID`, `albumName`, `artistName`, `cost`, `quan
 
 CREATE TABLE `orderItem` (
   `orderItemID` int(11) NOT NULL,
-  `ordersID` int(11) NOT NULL,
+  `orderID` int(11) NOT NULL,
   `inventoryID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orderItem`
+--
+
+INSERT INTO `orderItem` (`orderItemID`, `orderID`, `inventoryID`) VALUES
+(1, 6, 2),
+(2, 6, 4),
+(3, 7, 8),
+(4, 7, 5),
+(5, 7, 4),
+(6, 8, 8),
+(7, 8, 7);
 
 -- --------------------------------------------------------
 
@@ -111,8 +124,18 @@ CREATE TABLE `orderItem` (
 CREATE TABLE `orders` (
   `orderID` int(11) NOT NULL,
   `orderDate` date NOT NULL,
-  `customerID` int(11) NOT NULL
+  `customerID` int(11) NOT NULL,
+  `total` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orderID`, `orderDate`, `customerID`, `total`) VALUES
+(6, '2018-04-26', 1, 172),
+(7, '2018-04-27', 1, 192),
+(8, '2018-04-27', 1, 557);
 
 -- --------------------------------------------------------
 
@@ -143,7 +166,9 @@ INSERT INTO `owner` (`fName`, `lName`, `address`, `Email`, `password`, `ownerID`
 ('Buck', 'Towne', '315 Vincenza Pine\nLake Kendra, AL 28538-', 'schoen.scotty@exampl', 'eb03b64e9151574c6bdc89e6915b9a1aadf87b2f', 7),
 ('Monique', 'Leannon', '2538 Paige Stravenue Apt. 914\nPort There', 'beatty.hortense@exam', '4a91d093aaf42af55af990dee7817696c40cb39c', 8),
 ('Delia', 'Brown', '062 Melyna Ports\nWest Allanside, WV 2283', 'fisher.felipa@exampl', 'e4367bd79720ca74dd338effd1adf82b57698011', 9),
-('Nathanael', 'Kuhlman', '01228 Britney View\nKoeppchester, KS 8996', 'monahan.emil@example', 'dc9cc9143950ec7b892f92edc9f93caf8bcb5be7', 10);
+('Nathanael', 'Kuhlman', '01228 Britney View\nKoeppchester, KS 8996', 'monahan.emil@example', 'dc9cc9143950ec7b892f92edc9f93caf8bcb5be7', 10),
+('first', 'last', 'fake address st', 'owner@owner', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 11),
+('test first', 'test last', 'test address', 'test@test', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 12);
 
 -- --------------------------------------------------------
 
@@ -186,7 +211,8 @@ INSERT INTO `store` (`storeID`, `storeName`, `storeAddress`, `description`, `own
 (7, 'impedit', '932 Andres Rest', 'Qui nam non vero natus. Est ipsa possimus sint ad', 2),
 (8, 'quidem', '1374 Marianne Street', 'Sit natus nihil quo quia quaerat. Aut consectetur', 9),
 (9, 'occaecati', '74111 Armstrong Grov', 'Ipsum eos est ullam mollitia doloremque iure. Dolo', 4),
-(10, 'ducimus', '54452 Jonatan Street', 'Eum ut aut mollitia et. Et incidunt qui doloremque', 1);
+(10, 'ducimus', '54452 Jonatan Street', 'Eum ut aut mollitia et. Et incidunt qui doloremque', 1),
+(11, 'test store', 'test address', 'test store description', 12);
 
 -- --------------------------------------------------------
 
@@ -244,8 +270,8 @@ ALTER TABLE `inventory`
 --
 ALTER TABLE `orderItem`
   ADD PRIMARY KEY (`orderItemID`),
-  ADD KEY `ordersID` (`ordersID`),
-  ADD KEY `inventoryID` (`inventoryID`);
+  ADD KEY `orderID` (`orderID`) USING BTREE,
+  ADD KEY `inventoryID` (`inventoryID`) USING BTREE;
 
 --
 -- Indexes for table `orders`
@@ -280,8 +306,8 @@ ALTER TABLE `store`
 ALTER TABLE `storeInventory`
   ADD PRIMARY KEY (`storeInventoryID`),
   ADD UNIQUE KEY `storeInventoryID` (`storeInventoryID`),
-  ADD UNIQUE KEY `inventoryID` (`inventoryID`),
-  ADD UNIQUE KEY `storeID` (`storeID`);
+  ADD KEY `storeID` (`storeID`) USING BTREE,
+  ADD KEY `inventoryID` (`inventoryID`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -309,19 +335,19 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `orderItem`
 --
 ALTER TABLE `orderItem`
-  MODIFY `orderItemID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `ownerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ownerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `Review`
@@ -333,7 +359,7 @@ ALTER TABLE `Review`
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `storeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `storeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `storeInventory`
@@ -350,13 +376,13 @@ ALTER TABLE `storeInventory`
 --
 ALTER TABLE `Feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`storeID`) REFERENCES `store` (`storeID`),
-  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`reviewID`) REFERENCES `review` (`reviewID`);
+  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`reviewID`) REFERENCES `vinyl2`.`Review` (`reviewID`);
 
 --
 -- Constraints for table `orderItem`
 --
 ALTER TABLE `orderItem`
-  ADD CONSTRAINT `orderitem_ibfk_1` FOREIGN KEY (`ordersID`) REFERENCES `orders` (`orderID`),
+  ADD CONSTRAINT `orderitem_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `orders` (`orderID`),
   ADD CONSTRAINT `orderitem_ibfk_2` FOREIGN KEY (`inventoryID`) REFERENCES `inventory` (`inventoryID`);
 
 --
