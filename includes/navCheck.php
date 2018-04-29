@@ -22,7 +22,7 @@ function createNav(){
       echo '<li class="nav-item">
                 <a class="navbar-brand" href="storeProfile.php">' .$_SESSION['storeName'] . '</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="inventoryNav">
                 <a class="nav-link" href="inventory.php">Inventory</a>
             </li>';
             }
