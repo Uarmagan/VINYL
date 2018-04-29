@@ -1,7 +1,7 @@
 
 <?php
     session_start();
-    $page_title = 'Owner Registration';
+    $page_title = 'Store Profile';
     include('includes/header.html');
     include('connect.php');
 

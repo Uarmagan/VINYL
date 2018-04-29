@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('includes/header.html');
+    $page_title = 'Update Inventory page';
     require('connect.php');
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $errors = array();
