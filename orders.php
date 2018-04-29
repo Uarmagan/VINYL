@@ -1,5 +1,5 @@
 <?php
-require_once('connect.php');
+require('connect.php');
 session_start();
 $page_title = 'Orders page';
 include('includes/header.html');
