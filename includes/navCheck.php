@@ -20,10 +20,10 @@ function createNav(){
             }
             if(@$_SESSION['type'] == 'owner'){
       echo '<li class="nav-item">
-                <a class="navbar-brand" href="#">' .$_SESSION['storeName'] . '</a>
+                <a class="navbar-brand" href="storeProfile.php">' .$_SESSION['storeName'] . '</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Inventory</a>
+                <a class="nav-link" href="inventory.php">Inventory</a>
             </li>';
             }
         if(isset($_SESSION['type'])){
