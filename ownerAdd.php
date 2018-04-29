@@ -29,12 +29,6 @@
                 $cost = trim($_POST['cost']);
             }
 
-            if(empty($_POST['yearRelease'])){
-                $errors[] = "you forgot to enter the YearRelease";
-            }else{
-                $yearRelease = trim($_POST['yearRelease']);
-            }
-
             if(empty($_POST['qty'])){
                 $errors[] = "you forgot to enter Quantity";
             }else{
@@ -66,8 +60,7 @@
                         $rQStore = mysqli_query($db, $qStore);
                         
                         if($rQStore){
-                            echo"WE ARE COMPLETED";
-                            header("Location: ownerUpdate.php");
+                            header("Location: inventory.php");
                         }else{
                             echo"FAIL STOREINVENTORY<br>";
                         }
@@ -92,10 +85,9 @@
     <form method="POST">
         <br><br>
         
-        <input require type="text" name="albumName" placeholder="Album Name"><br><br>
+        <input require type="text" name="albumName" placeholder="Album Name" ><br><br>
         <input require type="text" name="artistName" placeholder="Artist Name"><br><br>
         <input require type="number" name="cost" placeholder="Cost"><br><br>
-        <input require type="number" name="yearRelease" placeholder="Year Release"><br><br>
         <input require type="number" name="qty" placeholder="Quantity"><br><br>
 
         <input type ="submit" >

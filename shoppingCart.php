@@ -122,7 +122,8 @@ if(isset($_GET["action"]))
 <form action="shoppingCart.php" method="POST">
     <div style="width:100%">
         <div style="width:60%;float: left;margin: 20px 20% auto 20%">
-            <input required class="btn btn-primary btn-lg btn-block" type="submit" name="checkout" value="Checkout!">
+<!--            <input required class="btn btn-primary btn-lg btn-block" type="submit" name="checkout" value="Checkout!">-->
+            <button class="btn btn-primary btn-lg btn-block" type="button" name="checkout" onclick="window.location.href='ordersConf.php'">Checkout!</button>
         </div>
     </div>
 </form>
@@ -153,7 +154,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 //if inserted orderItems into database
                 if($orderItemResult){
-                    echo '<script>alert("it fuckin worked")</script>';
                     unset($_SESSION['cart']);
                     header("Location: ordersConf.html");
                 }else{
