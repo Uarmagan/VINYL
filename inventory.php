@@ -4,6 +4,12 @@ session_start();
 $page_title = 'inventory page';
 include('includes/header.html');
 require('connect.php');
+
+//check if user is logged in
+if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
+    header('Location: login.php'); //redirect URL
+}
+
 if(isset($_GET["action"]))
  {
       if($_GET["action"] == "delete")

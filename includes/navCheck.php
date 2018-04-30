@@ -6,7 +6,7 @@ function createNav(){
         <ul class="navbar-nav">';
             if(@$_SESSION['type'] == 'customer'){
       echo '<li class="nav-item">
-                <a class="navbar-brand" href="./">Hi ' . $_SESSION['fName'] . '</a>
+                <a class="navbar-brand" href="./home.php">Hi ' . $_SESSION['fName'] . '</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./orders.php">Orders</a>
@@ -34,8 +34,13 @@ function createNav(){
             echo '<li class="nav-link">
                     <a class="nav-link" href="./login.php">Login</a>
                   </li>';
-            echo '<li class="nav-link">
-                    <a class="nav-link" href="./customerRegistration.php">Register</a>
+            echo '<li class="nav-item dropdown mr-5">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: 9%">Register</a>
+                        <!--<a class="nav-link" href="./customerRegistration.php">Register</a>-->
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="./CustomerRegistration.php">Customer</a>
+                            <a class="dropdown-item" href="./OwnerRegistration.php">Owner</a>
+                        </div>
                   </li>';
         }
         echo '
