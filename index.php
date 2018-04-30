@@ -67,7 +67,7 @@
 	<div id="enter">
 		<link rel="stylesheet" type="text/css" href="">
 		<button >
-		<a href="" id="enter">
+		<a href="home.php" id="enter">
 			ENTER 
 		</a>
 		</button>
