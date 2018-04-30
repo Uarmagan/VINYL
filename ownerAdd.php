@@ -1,9 +1,8 @@
 
     <?php
-       session_start();
-       include('includes/header.html');
-       $page_title = 'Add Inventory page';
-       $page_title = 'Add Item';
+    session_start();
+    $page_title = 'Add Item';
+    include('includes/header.html');
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
