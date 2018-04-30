@@ -90,7 +90,7 @@ if (isset($_POST["submit"])) {
             if($type == "customer")
                 header("Location: catalog.php");
             else
-                header("Location: ownerAdd.php");
+                header("Location: storeProfile.php");
         }else{
             echo '<div style="width: 100%;text-align: center;color: red">Incorrect Username and/or Password!</div>';
         }
