@@ -11,41 +11,45 @@
 	
 		$cq = "SELECT comment FROM Review where customerID = '2'";
 		$cqr = mysqli_query($db,$cq);
-		$errors = array();
+		
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			
-			if(empty($_POST['comment'])){
-				$errors[] = "";
-			}else{
-				$comment = trim($_POST['comment']);
-			}
-			$star = rand(1,5);
-		}
-	}else{
-		$storeID = $_GET['getStoreID'];
-		$storeQuery = "SELECT storeName, storeAddress address FROM store WHERE storeID = '$storeID'";
-		$row = mysqli_fetch_assoc(mysqli_query($db, $storeQuery));
-		$storeName = $row['storeName'];
-		$address = $row['address'];
-
-		$cq = "SELECT * FROM Review r, Feedback f WHERE storeID = '$storeID'";
-		$cqr = mysqli_query($db,$cq);
-		$errors = array();
-		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			
+			$errors = array();
 			if(empty($_POST['comment'])){
 				$errors[] = "";
 			}else{
 				$comment = trim($_POST['comment']);
 				
 			}
-			$star = rand(1,5);
 		}
-	}
-    
+	}else{
+		$storeID = $_GET['getStoreID'];
+		$storeQuery = "SELECT storeName, storeAddress address FROM store WHERE storeID = '$storeID'";
+		$storeRow = mysqli_fetch_assoc(mysqli_query($db, $storeQuery));
+		$storeName = $storeRow['storeName'];
+		$address = $storeRow['address'];
+		$customerID = $_SESSION['customerID'];
+		$cq = "SELECT * FROM Review r, Feedback f WHERE f.storeID = '$storeID'";
+		$cqr = mysqli_query($db,$cq);
+		$errors = array();
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				$comment = $_POST['comment'];
+				$star = rand(1,5);
+				$customerID = $_SESSION['customerID'];
+				$insertRQuery = "INSERT INTO Review (customerID, comment, starRating) VALUES ('$customerID', '$comment', '$star')";
+				if($insResult = mysqli_query($db, $insertRQuery)){
+					$getReviewID = "SELECT reviewID FROM Review WHERE customerID = '$customerID'";
+					$reviewIDRow = mysqli_fetch_assoc(mysqli_query($db, $getReviewID));
+					$reviewID = $reviewIDRow['reviewID'];
+					if(mysqli_num_rows(mysqli_query($db, "SELECT * FROM Feedback WHERE storeID = '$storeID'")) < 1){
+						$insertFQuery = "INSERT INTO Feedback (storeID, reviewID) VALUES ('$storeID', '$reviewID')";
+						if($insResult = mysqli_query($db, $insertFQuery)){
 
-
-
+						}		
+					}
+					header('Location: storeProfile.php?getStoreID=' . $storeID);
+				}
+			}
+		}
 ?>
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -144,11 +148,10 @@
        				 <div class="modal-header">
 						<h4 class="modal-title">Feedback</h4>	
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						
 					</div>	
 					<div class="modal-body">
 						<form method="post">
-							<textarea id="comment" required class="form-conrol col-12" rows="5" placeholder="Comment"></textarea><br><br>
+							<textarea id="comment" name="comment" required class="form-conrol col-12" rows="5" placeholder="Comment"></textarea><br><br>
 							<button type = "submit" class="btn btn-primary" data-dimiss="modal">submit</button>
 						</form>	
 					</div>
