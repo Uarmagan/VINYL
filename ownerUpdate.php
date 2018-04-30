@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include('includes/header.html');
     $page_title = 'Update Inventory page';
+    include('includes/header.html');
     require('connect.php');
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $errors = array();
@@ -51,16 +51,20 @@ echo '<form method="POST" style="margin-left:20px;">';
         if ($ItemResult = mysqli_query($db, $itemQuery)) {
             while($itemRow = mysqli_fetch_array($ItemResult)){
                 ?>
-        <label for="albumName">Album Name</label>
-        <input required type="text" name="albumName" value="<?php echo $itemRow["albumName"]; ?>">
-        <label for="artistName">Artist Name</label>
-        <input required type="text" name="artistName" value="<?php echo $itemRow["artistName"]; ?>">
-        <label for="albumName">Cost</label>
-        <input required type="number" name="cost" value="<?php echo $itemRow["cost"]; ?>">
-        <label for="albumName">Quantity</label>
-        <input required type="number" name="qty" value="<?php echo $itemRow["quantity"]; ?>">
-        <input type ="submit">
-
+                <h1 style="text-align: center;margin-top: 8%">Update an Item</h1>
+                <div style="margin: auto; width: 30%;min-width: 300px">
+                    <div class="form-group">
+                        <label for="albumName">Album Name</label>
+                        <input class="form-control" required type="text" name="albumName" value="<?php echo $itemRow["albumName"]; ?>">
+                        <label for="artistName">Artist Name</label>
+                        <input class="form-control" required type="text" name="artistName" value="<?php echo $itemRow["artistName"]; ?>">
+                        <label for="albumName">Cost</label>
+                        <input class="form-control" required type="number" name="cost" value="<?php echo $itemRow["cost"]; ?>">
+                        <label for="albumName">Quantity</label>
+                        <input class="form-control" required type="number" name="qty" value="<?php echo $itemRow["quantity"]; ?>">
+                        <input class="btn btn-primary btn-lg btn-block" type ="submit" style="margin-top: 10px">
+                    </div>
+                </div>
         <?php
             }
         }else{

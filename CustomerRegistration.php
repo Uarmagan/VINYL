@@ -3,6 +3,10 @@ session_start();
 $page_title = 'Customer Registration';
 include('includes/header.html');
 
+if(isset($_SESSION['type'])){
+    header("Location: index.php");
+}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $errors = array();
