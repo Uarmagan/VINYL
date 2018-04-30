@@ -5,23 +5,43 @@
     include('includes/header.html');
     include('connect.php');
 
-    $storeID = $_SESSION['storeID'];
-    $storeName = $_SESSION['storeName'];
-
-    $cq = "SELECT comment FROM Review where customerID = '2'";
-    $cqr = mysqli_query($db,$cq);
-    $errors = array();
-	if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		
-		if(empty($_POST['comment'])){
-			$errors[] = "";
-		}else{
-			$comment = trim($_POST['comment']);
+	if($_SESSION['type'] == 'owner'){
+		$storeID = $_SESSION['storeID'];
+		$storeName = $_SESSION['storeName'];
+	
+		$cq = "SELECT comment FROM Review where customerID = '2'";
+		$cqr = mysqli_query($db,$cq);
+		$errors = array();
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			
+			if(empty($_POST['comment'])){
+				$errors[] = "";
+			}else{
+				$comment = trim($_POST['comment']);
+			}
+			$star = rand(1,5);
 		}
-		$star = rand(1,5);
-		
-		
+	}else{
+		$storeID = $_GET['getStoreID'];
+		$storeQuery = "SELECT storeName, storeAddress address FROM store WHERE storeID = '$storeID'";
+		$row = mysqli_fetch_assoc(mysqli_query($db, $storeQuery));
+		$storeName = $row['storeName'];
+		$address = $row['address'];
+
+		$cq = "SELECT comment FROM Review where customerID = '1'";
+		$cqr = mysqli_query($db,$cq);
+		$errors = array();
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			
+			if(empty($_POST['comment'])){
+				$errors[] = "";
+			}else{
+				$comment = trim($_POST['comment']);
+			}
+			$star = rand(1,5);
+		}
 	}
+    
 
 
 
@@ -109,7 +129,7 @@
 		
 		<div id ="left" >
 				<h3><?php echo"$storeName";?></h3><br>
-				<h7> ADDRESSS<h7>
+				<h7><?php echo"$address";?><h7>
 				<div id="imgDiv">
 					<img src="includes/vimage.png">
 				</div><br>
@@ -146,24 +166,28 @@
 			<div id ="right">
 				<h1>Feedback</h1><br>
                 <?php
-                    $count = 1;
-                    while($crow = mysqli_fetch_array($cqr)){
-                        echo '<div id = "flex-comment">';
-                        echo '<p id = "comment">'.$crow['comment'].'</p>';
-                        echo '<div id= "rightSide"';
-                        echo  '<h2>costomer'.$count.'</h2>';
-                        echo '<div class= "starts">';
-                        echo '<span class="fa fa-star checked"></span>
-                             <span class="fa fa-star checked"></span>
-                             <span class="fa fa-star checked"></span>
-                             <span class="fa fa-star"></span>
-                             <span class="fa fa-star"></span>';
-                        echo'</div>';
-                        echo'</div>';
-                        echo'</div>';
-                       $count++; 
-                        
-                    }
+					$count = 1;
+					if(mysqli_num_rows($cqr) > 0){
+						while($crow = mysqli_fetch_array($cqr)){
+							echo '<div id = "flex-comment">';
+							echo '<p id = "comment">'.$crow['comment'].'</p>';
+							echo '<div id= "rightSide"';
+							echo  '<h2>costomer'.$count.'</h2>';
+							echo '<div class= "starts">';
+							echo '<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>';
+							echo'</div>';
+							echo'</div>';
+							echo'</div>';
+						$count++; 
+							
+						}
+					}else{
+						echo 'There are no comments';
+					}
 
 
                 ?>

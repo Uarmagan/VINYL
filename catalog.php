@@ -52,6 +52,7 @@ if(isset($_POST["addToCart"]))
       }
  }
 
+
 ?>
 
 <div class="items" style="width: 90%;margin: auto 5% auto 5% ">
@@ -64,9 +65,9 @@ if(isset($_POST["addToCart"]))
 
             while($itemRow = mysqli_fetch_array($ItemResult)){
 
-                $storeQuery = "SELECT  DISTINCT s.storeName FROM store s, storeInventory x, inventory i WHERE s.storeID = x.storeID 
+                $storeQuery = "SELECT  DISTINCT s.storeName, s.storeID FROM store s, storeInventory x, inventory i WHERE s.storeID = x.storeID 
                   AND {$itemRow['inventoryID']} = x.inventoryID";
-
+                
                 $storeResult = mysqli_query($db, $storeQuery);
 
                 echo '<div class="card" style="width: 80%; margin: 20px;">
@@ -84,24 +85,22 @@ if(isset($_POST["addToCart"]))
                                     <input type="hidden" name="artist" value="'. $itemRow['artistName'] .'"/>
                                     <input   type="hidden" name="cost" value="'. $itemRow['cost'] .'"/>  
                                     <select required name="storeDropDown" class="custom-select" style="width: 70%;float: left">';
+                $storeID = '';
                 while($storeRow = mysqli_fetch_array($storeResult)){
                     echo '<option value="' . $storeRow['storeName'] .'">' . $storeRow['storeName'] .'</option>';
+                    $storeID = $storeRow['storeID'];
                 }
                 echo '</select>
                     </li>
                     <li style="background-color: whitesmoke; list-style-type: none">';
-
-                    $added = "select * from inventory where inventoryID = ".$itemRow["inventoryID"];
-                    $result = mysqli_query($db,$added);
-                    $already_added = mysqli_fetch_all($result)[0];
-//                    echo '<p>'.implode(" ",$already_added).'</p>';
-                    if($already_added)//($itemRow["inventoryID"] != 2)
                         echo '<input type="submit" name="addToCart" class="btn btn-primary" style="margin: 10px 20% 10px 20%;width: 60%;" value="Add to Cart" />';
-                    else
-                        echo '<input type="submit" name="addToCart" class="btn btn-secondary" style="margin: 10px 20% 10px 20%;width: 60%;" value="Added to Cart" />';
                     echo '</li>
                     </ul>
-                    </form>
+                    </form>';
+                    echo '<form style="background-color: whitesmoke; method="POST" action="storeProfile.php?action=store&storeID="' . $storeID . '">';
+                        echo '<input  type="submit" name="goToStore" class="btn btn-primary" style="margin: 10px 20% 10px 20%;width: 60%;" value="Go To Store" />';
+                        echo '<input type="hidden" name="getStoreID" value="'. $storeID .'" />';
+                    echo '</form>
                     </div>';
             }
             echo '</div>';
