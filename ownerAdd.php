@@ -2,6 +2,10 @@
     <?php
     session_start();
     $page_title = 'Add Item';
+    //check if user is logged in
+    if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
+        header('Location: login.php'); //redirect URL
+    }
     include('includes/header.html');
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){

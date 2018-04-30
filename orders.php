@@ -3,6 +3,10 @@ require('connect.php');
 session_start();
 $page_title = 'Orders page';
 include('includes/header.html');
+//check if user is logged in
+if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
+    header('Location: login.php'); //redirect URL
+}
 ?>
 
 <h1 style="width:80%; margin-left:5%; margin-bottom:-10px; margin-top:10px;">Orders</h1>

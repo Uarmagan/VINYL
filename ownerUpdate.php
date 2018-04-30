@@ -3,6 +3,12 @@
     $page_title = 'Update Inventory page';
     include('includes/header.html');
     require('connect.php');
+
+//check if user is logged in
+if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
+    header('Location: login.php'); //redirect URL
+}
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $errors = array();
         
