@@ -8,8 +8,12 @@
 	if($_SESSION['type'] == 'owner'){
 		$storeID = $_SESSION['storeID'];
 		$storeName = $_SESSION['storeName'];
+		
+		$storeQuery = "SELECT storeName, storeAddress address FROM store WHERE storeID = '$storeID'";
+		$storeRow = mysqli_fetch_assoc(mysqli_query($db, $storeQuery));
+		$address = $storeRow['address'];
 	
-		$cq = "SELECT comment FROM Review where customerID = '2'";
+		$cq = "SELECT * FROM Review r, Feedback f WHERE f.storeID = '$storeID'";
 		$cqr = mysqli_query($db,$cq);
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
