@@ -28,7 +28,7 @@
 		$storeName = $row['storeName'];
 		$address = $row['address'];
 
-		$cq = "SELECT comment FROM Review where customerID = '1'";
+		$cq = "SELECT * FROM Review r, Feedback f WHERE storeID = '$storeID'";
 		$cqr = mysqli_query($db,$cq);
 		$errors = array();
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -37,6 +37,7 @@
 				$errors[] = "";
 			}else{
 				$comment = trim($_POST['comment']);
+				
 			}
 			$star = rand(1,5);
 		}
