@@ -92,10 +92,8 @@ if (isset($_POST["submit"])) {
             else
                 header("Location: ownerAdd.php");
         }else{
-            echo 'username or password is incorrect!';
-            echo '<br>';
-            echo 'try again!';
-        }    
+            echo '<div style="width: 100%;text-align: center;color: red">Incorrect Username and/or Password!</div>';
+        }
     }else{
         echo '<p style="color: red;text-align: center " class="error">The following error(s) occurred:<br>';
         foreach ($errors as $msg) {

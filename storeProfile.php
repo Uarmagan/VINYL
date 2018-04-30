@@ -10,14 +10,26 @@
 
     $cq = "SELECT comment FROM Review where customerID = '2'";
     $cqr = mysqli_query($db,$cq);
-    
-
+    $errors = array();
+	if($_SERVER['REQUEST_METHOD'] == 'POST'){
+		
+		if(empty($_POST['comment'])){
+			$errors[] = "";
+		}else{
+			$comment = trim($_POST['comment']);
+		}
+		$star = rand(1,5);
+		
+		
+	}
 
 
 
 ?>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style type="text/css">
 		*{
@@ -100,10 +112,36 @@
 				<h7> ADDRESSS<h7>
 				<div id="imgDiv">
 					<img src="includes/vimage.png">
-                </div>
+				</div><br>
+				<button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">Add Feedback </button>
                 
-				
 		</div>
+<!-- this for the pop up   -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-l">
+				<div class="modal-content">
+       				 <div class="modal-header">
+						<h4 class="modal-title">Feedback</h4>	
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						
+					</div>	
+					<div class="modal-body">
+						<form method="post">
+							<textarea id="comment" required class="form-conrol col-12" rows="5" placeholder="Comment"></textarea><br><br>
+							<button type = "submit" class="btn btn-primary" data-dimiss="modal">submit</button>
+						</form>	
+					</div>
+					<div class="modal-footer">
+          				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      			  	</div>		
+				</div>	
+
+			</div>	
+		</div>
+
+
+
+
 		<div id="flex"> 
 			<div id ="right">
 				<h1>Feedback</h1><br>

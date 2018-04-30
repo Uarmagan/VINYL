@@ -2,7 +2,11 @@
     <?php
        session_start();
        include('includes/header.html');
+<<<<<<< HEAD
        $page_title = 'Add Inventory page';
+=======
+       $page_title = 'Add Item';
+>>>>>>> b9ad0f42e947b79e352dde9b8090d2765cefe72d
        
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
@@ -82,16 +86,18 @@
                 }
             }
         }
-    ?> 
-    <form method="POST">
-        <br><br>
-        
-        <input require type="text" name="albumName" placeholder="Album Name" ><br><br>
-        <input require type="text" name="artistName" placeholder="Artist Name"><br><br>
-        <input require type="number" name="cost" placeholder="Cost"><br><br>
-        <input require type="number" name="qty" placeholder="Quantity"><br><br>
-
-        <input type ="submit" >
-    </form>
+    ?>
+    <h1 style="text-align: center;margin-top: 8%">Add an Item</h1>
+    <div style="margin: auto; width: 30%;min-width: 300px">
+        <div class="form-group">
+            <form method="POST">
+                <input class="form-control" required type="text" name="albumName" placeholder="Album Name" >
+                <input class="form-control" required type="text" name="artistName" placeholder="Artist Name">
+                <input class="form-control" required type="number" name="cost" placeholder="Cost" style="margin-top: 10px">
+                <input class="form-control" required type="number" name="qty" placeholder="Quantity">
+                <input class="btn btn-primary btn-lg btn-block" type ="submit" style="margin-top: 10px">
+            </form>
+        </div>
+    </div>
     <?php include('includes/footer.html');
 

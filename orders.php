@@ -30,7 +30,7 @@ include('includes/header.html');
             $count++;
         }
     }else{
-        echo '<h4>You do not have any orders in your cart</h4>';
+        echo '<h4>You do not have any order history</h4>';
     } 
 ?>
   </tbody>

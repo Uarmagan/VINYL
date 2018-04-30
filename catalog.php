@@ -72,10 +72,11 @@ if(isset($_POST["addToCart"]))
                 echo '<div class="card" style="width: 80%; margin: 20px;">
                         <form method="post" action="catalog.php?action=add&id='.$itemRow["inventoryID"].'">
                             <ul class="list-group">
-                                <li class="list-group-item" style="color: white;background-color: black; text-align: center"><strong>Song Name</strong></li>
-                                <li class="list-group-item" style="background-color: whitesmoke"> Price: <strong style="float: right">$'. $itemRow['cost'] .'</strong></li>
-                                <li class="list-group-item"> Album: <strong style="float: right">'.$itemRow['albumName'].'</strong></li>
+                                <!--<li class="list-group-item" style="color: white;background-color: black; text-align: center"><strong>Song Name</strong></li>-->
+                                
+                                <li class="list-group-item" style="color: white;background-color: black;"> Album: <strong style="float: right">'.$itemRow['albumName'].'</strong></li>
                                 <li class="list-group-item"> Artist: <strong style="float: right">'. $itemRow['artistName'] .'</strong></li>
+                                <li class="list-group-item"> Price: <strong style="float: right">$'. $itemRow['cost'] .'</strong></li>
                                 <li class="list-group-item"> Available: <strong style="float: right">'. $itemRow['quantity'] .'</strong></li>
                                 <li class="list-group-item" >
                                     <input style="width: 30%;min-width: 25px;float: left" type="number" name="quantity" class="form-control" value="1" />
@@ -120,7 +121,7 @@ if(isset($_POST["addToCart"]))
         if(search != null){
             cards.forEach( element => {
                 const elementName = element.querySelectorAll('.list-group-item');
-                const htmlTerm = elementName[2].innerText; //index from li
+                const htmlTerm = elementName[0].innerText; //index from li
                 const regx = /(?<=: )[^\]]+/g;
                 const albumName = htmlTerm.match(regx)[0];
 
