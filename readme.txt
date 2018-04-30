@@ -33,7 +33,7 @@ How to Register: New Owner
     Click Submit
 
 How to Navigate: Customer
-	Add Items to Cart
+How to Add Items to Cart
     Login
     Navigate to Catalog
     Choose quantity of desired item
