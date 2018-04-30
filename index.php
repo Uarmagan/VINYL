@@ -1,31 +1,90 @@
 <?php
-session_start();
-$page_title = "Welcome to Vinyl";
-include('includes/header.html');?>
-<h1 class="text-center" style="font-size: 100px;margin-top: 100px">Welcome to Vinyl</h1>
-<h2 class="text-center" style="margin-top: 10px">Vinyl is a platform that provides a marketplace for vinyl record sellers and enthusiasts </h2>
+    $page_title = 'home';
+    include('includes/header.html');
+    include('connect.php');
 
-<?php
-//check if user is logged in
-//if(!isset($_SESSION['type'])) {
-//    echo '<button style="margin: 100px auto 20px auto; width: 100%;min-width: 300px;max-width: 800px"
-//            type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.href=\'login.php\'">Click Here to Login</button>
-//    <p class="text-center" style="font-size: larger">I want to register as a...</p>
-//    <div style="margin: auto; width: 100%;min-width: 300px;max-width: 800px">
-//        <button type="button" class="btn btn-secondary btn-lg" style="width: 40%;float: left;margin: 0% 5% 0 5%"
-//                onclick="window.location.href=\'OwnerRegistration.php\'">Store Owner</button>
-//        <button type="button" class="btn btn-secondary btn-lg" style="width: 40%;float: left;margin: 0% 5% 0 5%"
-//                onclick="window.location.href=\'CustomerRegistration.php\'">Customer</button>
-//    </div>';
-//} else {
-//    echo '<div style="margin: 200px auto auto auto; width: 100%;min-width: 300px;max-width: 800px">
-//        <button type="button" class="btn btn-secondary btn-lg" style="width: 40%;float: left;margin: 0% 5% 0 5%"
-//                onclick="window.location.href=\'catalog.php\'">Check the Catalog</button>
-//        <button type="button" class="btn btn-secondary btn-lg" style="width: 40%;float: left;margin: 0% 5% 0 5%"
-//                onclick="window.location.href=\'shoppingCart.php\'">Check your Cart</button>
-//    </div>';
-//}
+
+
+
 ?>
 
-<img src="includes/vinylMain.jpg" class="img-fluid bwImage" style="" alt="">
-<?php include('includes/footer.html');?>
+
+
+
+
+<head>
+	<title></title>
+	<style type="text/css">
+		
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			overflow: hidden;
+		}
+		video{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%, -50%);
+			min-width: 100%;
+			min-height: 100%;
+			width: auto;
+			height: auto;
+
+		}
+		#enter{
+			position: absolute;
+			z-index: 10;
+			top: 20px;
+			left: 20px;
+		}
+		button{
+			width: 150px;
+			font-size: 40px;
+			background: transparent;
+			border: none;
+			color: white;
+		}
+		a{
+			text-decoration: none;
+			color:white;
+		}
+		a:hover{
+			font-style: italic;
+			font-size: 46px;
+			color: pink;
+		}
+	</style>
+</head>
+
+	<video autoplay loop id="vid">
+		<source src="knaan.mp4" type="video/mp4">
+	</video>
+	
+
+	<div id="enter">
+		<link rel="stylesheet" type="text/css" href="">
+		<button >
+		<a href="">
+			ENTER 
+		</a>
+		</button>
+	</div>
+
+</html>
+	<script>
+		var vid = document.getElementById("vid");
+		
+		vid.addEventListener("play", myf);
+		
+		var ct = currentTime;
+
+		function myf(){
+			vid.currentTime = 14;
+		}
+		
+
+	</script>
+    <?php include('includes/footer.html');
