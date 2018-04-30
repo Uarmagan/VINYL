@@ -10,8 +10,18 @@
 
     $cq = "SELECT comment FROM Review where customerID = '2'";
     $cqr = mysqli_query($db,$cq);
-    
-
+    $errors = array();
+	if($_SERVER['REQUEST_METHOD'] == 'POST'){
+		
+		if(empty($_POST['comment'])){
+			$errors[] = "";
+		}else{
+			$comment = trim($_POST['comment']);
+		}
+		$star = rand(1,5);
+		
+		
+	}
 
 
 
@@ -116,10 +126,10 @@
 						
 					</div>	
 					<div class="modal-body">
-						<div>
-							<textarea class="form-conrol col-12" rows="5" placeholder="Comment"></textarea><br><br>
-							<button type = "button" class="btn btn-primary" data-dimiss="modal">submit</button>
-						</div>	
+						<form method="post">
+							<textarea id="comment" required class="form-conrol col-12" rows="5" placeholder="Comment"></textarea><br><br>
+							<button type = "submit" class="btn btn-primary" data-dimiss="modal">submit</button>
+						</form>	
 					</div>
 					<div class="modal-footer">
           				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
