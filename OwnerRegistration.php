@@ -80,6 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $sq = "INSERT INTO store(storeName, storeAddress, description,ownerID )VALUES('$storeName','$address','$storeDescription', $ownerID)";
                     $storeQuery = mysqli_query($db,$sq);
                     if($storeQuery){
+                        header("Location:login.php");
                         echo"Store Created! Success";
                     }
                 }
