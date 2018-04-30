@@ -95,7 +95,19 @@ include('includes/header.html');?>
             <p class="text-center">When we say it’s never been easier to start a business, we mean it. Viynl <br> 
             handles everything from marketing and payments, to secure checkout <br> and shipping. Now you 
             can focus on the things you love.</P>
-       <div>
-    <div> 
+       </div>
+    </div>
+
+    <div style="float: left">
+        <a href="Vinyl.pptx" id="enter">
+            Presentation
+        </a>
+    </div>
+    <div style="float: right">
+        <a href="readme.txt" id="enter">
+            Readme File
+        </a>
+    </div>
+
     
 <?php include('includes/footer.html');?>
