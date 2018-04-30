@@ -43,11 +43,8 @@
 
 
     }
-?>
 
-<form method="POST" style="margin-left:20px;">
-        <br><br>
-        <?php
+echo '<form method="POST" style="margin-left:20px;">';
          
         $inventoryID = $_SESSION['updateID'];
         $itemQuery = "SELECT * FROM inventory WHERE inventoryID = '$inventoryID'";
@@ -55,18 +52,14 @@
             while($itemRow = mysqli_fetch_array($ItemResult)){
                 ?>
         <label for="albumName">Album Name</label>
-        <br>
-        <input require type="text" name="albumName" value="<?php echo $itemRow["albumName"] ?>"><br><br>
+        <input required type="text" name="albumName" value="<?php echo $itemRow["albumName"]; ?>">
         <label for="artistName">Artist Name</label>
-        <br>
-        <input require type="text" name="artistName" value="<?php echo $itemRow["artistName"] ?>"><br><br>
+        <input required type="text" name="artistName" value="<?php echo $itemRow["artistName"]; ?>">
         <label for="albumName">Cost</label>
-        <br>
-        <input require type="number" name="cost" value="<?php echo $itemRow["cost"] ?>"><br><br>
+        <input required type="number" name="cost" value="<?php echo $itemRow["cost"]; ?>">
         <label for="albumName">Quantity</label>
-        <br>
-        <input require type="number" name="qty" value="<?php echo $itemRow["quantity"] ?>"><br><br>
-        <input type ="submit" >
+        <input required type="number" name="qty" value="<?php echo $itemRow["quantity"]; ?>">
+        <input type ="submit">
 
         <?php
             }
