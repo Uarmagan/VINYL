@@ -2,6 +2,11 @@
 session_start();
 $page_title = 'Owner Registration';
 include('includes/header.html');
+
+if(isset($_SESSION['type'])){
+    header("Location: index.php");
+}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $errors = array();
     require('connect.php');
@@ -19,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     if(empty($_POST['confirmPassword'])){
-        $errors[] = "you forgot to confrim Password";
+        $errors[] = "you forgot to confirm Password";
     }else{
         $cpass = $_POST['confirmPassword'];
     }

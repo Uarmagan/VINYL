@@ -9,6 +9,9 @@ if(!isset($_SESSION['type']) && $_SESSION['type'] == ""){
     header('Location: login.php'); //redirect URL   
 }
 
+if($_SESSION['type'] == "owner")
+    header('Location: storeProfile.php');
+
 if(isset($_POST["addToCart"]))
  {
       if(isset($_SESSION["cart"]))

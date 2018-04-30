@@ -1,9 +1,16 @@
 
     <?php
+<<<<<<< HEAD
        session_start();
        include('includes/header.html');
        $page_title = 'Add Item';
        
+=======
+    session_start();
+    $page_title = 'Add Item';
+    include('includes/header.html');
+
+>>>>>>> a6aba6fd4aa02f3ee57faae73d7a7b8b9b73d3db
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
             require('connect.php');
