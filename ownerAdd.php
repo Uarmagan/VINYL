@@ -2,6 +2,7 @@
     <?php
        session_start();
        include('includes/header.html');
+       $page_title = 'Add Inventory page';
        
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
