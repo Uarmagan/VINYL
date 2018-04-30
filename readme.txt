@@ -39,38 +39,40 @@ How to Navigate: Customer
     Choose quantity of desired item
     Click ‘Add to Cart’ button on desired item
 
-	Order Items
+How to Order Items
         Login
         Navigate to Cart
         Click ‘Checkout!’ button
 
-	Review Orders
+How to Review Orders
         Login
         Navigate to Orders
 
 
 
 How to Navigate: Owner
-	Add Item
+How to Add Item
         Login
         Click Inventory in navigation bar
         Click ‘Add Item’ button
         Enter item info
         Click submit
 
-	Update Item
+How to Update Item
         Login
         Click Inventory in navigation bar
         Click ‘Update Item’ on the item to be edited
         Edit info
         Click submit
 
-	Delete Item
+How to Delete Item
         Login
         Click Inventory in navigation bar
         Click ‘Delete’ on the item to be deleted
 
-	Edit Store Profile
+How to View Store Profile
+        Login
+        Click on their name in navigation bar
 
 
 
@@ -84,7 +86,8 @@ Completed Sections
     Shopping Cart
     Orders
     Inventory
+    Store Profile
 
 Incomplete Sections
     Use Spotify API
-    Store Profile
+    Star Ratings
