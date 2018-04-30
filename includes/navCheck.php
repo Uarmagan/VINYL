@@ -2,7 +2,7 @@
 
 function createNav(){
     echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mr-auto" href="./">VINYL</a>
+        <a class="navbar-brand mr-auto" href="home.php">VINYL</a>
         <ul class="navbar-nav">';
             if(@$_SESSION['type'] == 'customer'){
       echo '<li class="nav-item">
