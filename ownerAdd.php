@@ -2,12 +2,9 @@
     <?php
        session_start();
        include('includes/header.html');
-<<<<<<< HEAD
        $page_title = 'Add Inventory page';
-=======
        $page_title = 'Add Item';
->>>>>>> b9ad0f42e947b79e352dde9b8090d2765cefe72d
-       
+
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors = array();
             require('connect.php');
