@@ -60,7 +60,7 @@
     <title>index page</title>
 </head>
 
-	<video autoplay loop id="vid">
+	<video autoplay loop muted id="vid">
 		<source src="includes/knaan.mp4" type="">
 	</video>
 	
