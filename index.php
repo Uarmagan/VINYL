@@ -1,7 +1,6 @@
 <?php
     $page_title = 'home';
-    include('includes/header.html');
-    include('connect.php');
+    
 
 
 
@@ -57,17 +56,18 @@
 			color: pink;
 		}
 	</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 	<video autoplay loop id="vid">
-		<source src="knaan.mp4" type="video/mp4">
+		<source src="includes/knaan.mp4" type="">
 	</video>
 	
 
 	<div id="enter">
 		<link rel="stylesheet" type="text/css" href="">
 		<button >
-		<a href="">
+		<a href="" id="enter">
 			ENTER 
 		</a>
 		</button>
@@ -79,12 +79,11 @@
 		
 		vid.addEventListener("play", myf);
 		
-		var ct = currentTime;
-
+        
+        
 		function myf(){
 			vid.currentTime = 14;
 		}
-		
-
 	</script>
+
     <?php include('includes/footer.html');
