@@ -38,7 +38,7 @@ include('includes/header.html');?>
        h1{
            font-size: 55px;
        }
-       img{
+     #img1{
            border-radius: 60px;
        }
     </style>
