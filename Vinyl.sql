@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2018 at 07:15 PM
+-- Generation Time: May 01, 2018 at 02:12 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.1.12
 
@@ -55,10 +55,17 @@ INSERT INTO `customer` (`customerID`, `email`, `password`, `fName`, `lName`, `ad
 --
 
 CREATE TABLE `Feedback` (
-  `FeedbackID` int(11) NOT NULL,
-  `storeID` int(11) NOT NULL,
-  `reviewID` int(11) NOT NULL
+  `feedbackID` int(11) NOT NULL,
+  `storeID` int(11) DEFAULT NULL,
+  `reviewID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Feedback`
+--
+
+INSERT INTO `Feedback` (`feedbackID`, `storeID`, `reviewID`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -88,7 +95,13 @@ INSERT INTO `inventory` (`inventoryID`, `albumName`, `artistName`, `cost`, `quan
 (7, 'sit', 'Gleason', 96, 5),
 (8, 'corrupti', 'Ryan', 77, 8),
 (9, 'sed', 'Stiedemann', 37, 3),
-(10, 'minus', 'Beier', 12, 6);
+(10, 'minus', 'Beier', 12, 6),
+(11, 'Graduation', 'Kanye West', 40, 2),
+(14, 'Damn', 'Kendrick Lamar', 60, 8),
+(15, 'Party In The USA', 'Miley Cyrus', 10, 6),
+(16, 'Culture II', 'Cardi B', 43, 4),
+(17, 'Views', 'Drake', 86, 2),
+(18, 'Bobby Tarantino II', 'Logic', 23, 6);
 
 -- --------------------------------------------------------
 
@@ -168,7 +181,8 @@ INSERT INTO `owner` (`fName`, `lName`, `address`, `Email`, `password`, `ownerID`
 ('Delia', 'Brown', '062 Melyna Ports\nWest Allanside, WV 2283', 'fisher.felipa@exampl', 'e4367bd79720ca74dd338effd1adf82b57698011', 9),
 ('Nathanael', 'Kuhlman', '01228 Britney View\nKoeppchester, KS 8996', 'monahan.emil@example', 'dc9cc9143950ec7b892f92edc9f93caf8bcb5be7', 10),
 ('first', 'last', 'fake address st', 'owner@owner', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 11),
-('test first', 'test last', 'test address', 'test@test', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 12);
+('test first', 'test last', 'test address', 'test@test', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 12),
+('ownerUgur', 'ownerArma', '123 fake st', 'ugur@owner', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 13);
 
 -- --------------------------------------------------------
 
@@ -180,8 +194,23 @@ CREATE TABLE `Review` (
   `reviewID` int(11) NOT NULL,
   `customerID` int(11) NOT NULL,
   `comment` char(250) NOT NULL,
-  `stareRating` int(11) NOT NULL
+  `starRating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Review`
+--
+
+INSERT INTO `Review` (`reviewID`, `customerID`, `comment`, `starRating`) VALUES
+(1, 1, 'This is the best place!', 5),
+(5, 1, 'I loved it but very limited selection', 1),
+(6, 1, 'SOO CHEAP I BOUGHT EVERYTHING', 1),
+(7, 1, 'take all my money', 5),
+(8, 1, 'It was honestly just ok', 2),
+(9, 1, 'I wondered in here accidentally. it was pretty rad', 2),
+(10, 1, 'bought 50 things and it got here really quick', 5),
+(11, 1, 'not bad not bad at all', 3),
+(12, 1, 'more records..nothing here', 3);
 
 -- --------------------------------------------------------
 
@@ -212,7 +241,8 @@ INSERT INTO `store` (`storeID`, `storeName`, `storeAddress`, `description`, `own
 (8, 'quidem', '1374 Marianne Street', 'Sit natus nihil quo quia quaerat. Aut consectetur', 9),
 (9, 'occaecati', '74111 Armstrong Grov', 'Ipsum eos est ullam mollitia doloremque iure. Dolo', 4),
 (10, 'ducimus', '54452 Jonatan Street', 'Eum ut aut mollitia et. Et incidunt qui doloremque', 1),
-(11, 'test store', 'test address', 'test store description', 12);
+(11, 'test store', 'test address', 'test store description', 12),
+(12, 'the funky duck', '123 fake st', 'this is a test store', 13);
 
 -- --------------------------------------------------------
 
@@ -239,7 +269,13 @@ INSERT INTO `storeInventory` (`storeInventoryID`, `storeID`, `inventoryID`) VALU
 (6, 6, 6),
 (7, 7, 7),
 (8, 8, 8),
-(9, 9, 9);
+(9, 9, 9),
+(10, 11, 11),
+(13, 11, 14),
+(14, 11, 15),
+(15, 12, 16),
+(16, 12, 17),
+(17, 12, 18);
 
 --
 -- Indexes for dumped tables
@@ -255,7 +291,7 @@ ALTER TABLE `customer`
 -- Indexes for table `Feedback`
 --
 ALTER TABLE `Feedback`
-  ADD PRIMARY KEY (`FeedbackID`),
+  ADD PRIMARY KEY (`feedbackID`),
   ADD KEY `storeID` (`storeID`),
   ADD KEY `reviewID` (`reviewID`);
 
@@ -323,13 +359,13 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `Feedback`
 --
 ALTER TABLE `Feedback`
-  MODIFY `FeedbackID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `feedbackID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `inventoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `orderItem`
@@ -347,25 +383,25 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `ownerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ownerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `Review`
 --
 ALTER TABLE `Review`
-  MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `storeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `storeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `storeInventory`
 --
 ALTER TABLE `storeInventory`
-  MODIFY `storeInventoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `storeInventoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -376,7 +412,7 @@ ALTER TABLE `storeInventory`
 --
 ALTER TABLE `Feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`storeID`) REFERENCES `store` (`storeID`),
-  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`reviewID`) REFERENCES `vinyl2`.`Review` (`reviewID`);
+  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`reviewID`) REFERENCES `Review` (`reviewID`);
 
 --
 -- Constraints for table `orderItem`
